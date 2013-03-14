@@ -1,8 +1,9 @@
-# -*- encoding: utf-8 -*-
+# -*- coding: utf-8 -*-
 ##############################################################################
 #
-#    Copyright (C) 2011 credativ Ltd (<http://www.credativ.co.uk>).
-#    All Rights Reserved
+#    OpenERP, Open Source Management Solution
+#    Addons modules by CLEARCORP S.A.
+#    Copyright (C) 2009-TODAY CLEARCORP S.A. (<http://clearcorp.co.cr>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -19,6 +20,18 @@
 #
 ##############################################################################
 
-import davivienda_format
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+{
+    'name': 'National Bank Account Banking',
+    'version': '0.5',
+    'license': 'AGPL-3',
+    'author': 'CLEARCORP S.A.',
+    'website': 'http://www.clearcorp.co.cr',
+    'category': 'Account Banking',
+    'depends': ['account_banking'],
+    'init_xml': [],
+    'update_xml': [],
+    'demo_xml': [],
+    'description': '',
+    'active': False,
+    'installable': True,
+}

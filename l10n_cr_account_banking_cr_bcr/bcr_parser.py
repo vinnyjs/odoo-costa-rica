@@ -27,6 +27,8 @@ from datetime import datetime
 from dateutil import parser
 from pprint import PrettyPrinter
 from copy import copy
+from tools.translate import _
+from osv import osv, fields
 
 class BCRParser( object ):
     """
@@ -72,75 +74,83 @@ class BCRParser( object ):
 
         cad = ''
         list_split = rec.split('\r\n')
-
-        for l in list_split:
-            
-            # _transmission_number -> FIRST REVISION
-            if (l.find('Movimiento realizado el periodo', 0, len('Movimiento realizado el periodo')) > -1):
-                line_dict['statementnr'] = self.extract_number(l)
-            # _transmission_number -> SECOND REVISION
-            elif (l.find('MOVIMIENTO REALIZADO', 0, len('MOVIMIENTO REALIZADO')) > -1):
-                line_dict['statementnr'] = self.extract_number(l)   
-                           
-            #_account_number -> FIRST REVISION
-            if l.find('Movimiento de Cuenta Corriente', 0, len('Movimiento de Cuenta Corriente')) > -1:
-                line_dict['account_number'] = self.extract_number(l)                
-                if (l.find('D',0,len(l)) > -1):
-                    line_dict['currencycode'] = 'USD'
-                else:
-                    line_dict['currencycode'] = 'CRC'
-            #_account_number -> SECOND REVISION        
-            elif (l.find('MOVIMIENTO DE LA CUENTA  CORRIENTE No.', 0, len('MOVIMIENTO DE LA CUENTA  CORRIENTE No.')) > -1):
-                account_str = self.extract_number(l)   
-                #001-0246447-0
-                account_1 = account_str[2:3] #1
-                account_2 = account_str[4:]  #246447-0
-                account_complete = account_1+self.extract_number(account_2)#12464470
-                line_dict['account_number'] = self.extract_number(account_complete)
-                if (l.find('DOLARES',0,len(l)) > -1):
-                    line_dict['currencycode'] = 'USD'
-                else:
-                    line_dict['currencycode'] = 'CRC'                      
-             
-            #FECHA Y HORA -> FIRST REVISION 
-            if (l.find('Solicitado el', 0, len('Solicitado el'))  > -1):
-                date =  hour = cad = ''
-                date = self.extract_date_regular_expresion(l)
-                if len(date) > 0:                   
-                    hour = self.extract_hour_regular_expresion(l)
-                cad = date + ' ' + hour                
-                line_dict['transref'] = cad
-                line_dict['bookingdate'] = cad
-            #FECHA Y HORA -> SECOND REVISION 
-            elif (l.find('SOLICITADO EL', 0, len('SOLICITADO EL'))  > -1):
-                date =  hour = cad = ''
-                date = self.extract_date_regular_expresion(l)
-                if len(date) > 0:                   
-                    hour = self.extract_hour_regular_expresion(l)
-                cad = date + ' ' + hour                
-                line_dict['transref'] = cad
-                line_dict['bookingdate'] = cad        
-                               
-            #_opening_balance -> FIRST REVISION
-            if l.find('Saldo Inicial', 0, len('Saldo Inicial'))  > -1:
-                line_dict['startingbalance'] = self.extract_float(l)
-            #_opening_balance -> SECOND REVISION   
-            elif l.find('INICIAL', 0, len('INICIAL'))  > -1:
-                line_dict['startingbalance'] = self.extract_float(l)
+        account_number_wizard = kwargs['account_number']
+        
+        #If return True, the account are the same.
+        if self.match_account(list_split, account_number_wizard):        
+            for l in list_split:            
+                 #_account_number -> FIRST REVISION
+                if l.find('Movimiento de Cuenta Corriente', 0, len('Movimiento de Cuenta Corriente')) > -1:
+                    line_dict['account_number'] = self.extract_number(l)                
                     
-            #_closing_balance -> FIRST REVISION
-            if l.find('FINAL', 0, len('FINAL'))  > -1:
-                line_dict['endingbalance'] = self.extract_float(l)
-            #_closing_balance -> SECOND REVISION    
-            elif l.find('Saldo Final', 0, len('Saldo Final'))  > -1:
-                line_dict['endingbalance'] = self.extract_float(l)
-                    
-        line_dict['ammount'] = float( line_dict['startingbalance'] ) + float( line_dict['endingbalance'] )
-        line_dict['id'] = line_dict['bookingdate'] + ' - ' + line_dict['account_number']
-        self.line_dict = line_dict
-      
-        return line_dict
-            
+                    if (l.find('D',0,len(l)) > -1):
+                        line_dict['currencycode'] = 'USD'
+                    else:
+                        line_dict['currencycode'] = 'CRC'
+                        
+                #_account_number -> SECOND REVISION        
+                elif (l.find('MOVIMIENTO DE LA CUENTA  CORRIENTE No.', 0, len('MOVIMIENTO DE LA CUENTA  CORRIENTE No.')) > -1):
+                    account_str = self.extract_number(l)   
+                    #001-0246447-0
+                    account_1 = account_str[2:3] #1
+                    account_2 = account_str[4:]  #246447-0
+                    account_complete = account_1+self.extract_number(account_2)#12464470
+                    line_dict['account_number'] = self.extract_number(account_complete)
+                    if (l.find('DOLARES',0,len(l)) > -1):
+                        line_dict['currencycode'] = 'USD'
+                    else:
+                        line_dict['currencycode'] = 'CRC'
+                
+                # _transmission_number -> FIRST REVISION
+                if (l.find('Movimiento realizado el periodo', 0, len('Movimiento realizado el periodo')) > -1):
+                    line_dict['statementnr'] = self.extract_number(l)
+                # _transmission_number -> SECOND REVISION
+                elif (l.find('MOVIMIENTO REALIZADO', 0, len('MOVIMIENTO REALIZADO')) > -1):
+                    line_dict['statementnr'] = self.extract_number(l)                          
+                                     
+                #FECHA Y HORA -> FIRST REVISION 
+                if (l.find('Solicitado el', 0, len('Solicitado el'))  > -1):
+                    date =  hour = cad = ''
+                    date = self.extract_date_regular_expresion(l)
+                    if len(date) > 0:                   
+                        hour = self.extract_hour_regular_expresion(l)
+                    cad = date + ' ' + hour                
+                    line_dict['transref'] = cad
+                    line_dict['bookingdate'] = cad
+                #FECHA Y HORA -> SECOND REVISION 
+                elif (l.find('SOLICITADO EL', 0, len('SOLICITADO EL'))  > -1):
+                    date =  hour = cad = ''
+                    date = self.extract_date_regular_expresion(l)
+                    if len(date) > 0:                   
+                        hour = self.extract_hour_regular_expresion(l)
+                    cad = date + ' ' + hour                
+                    line_dict['transref'] = cad
+                    line_dict['bookingdate'] = cad        
+                                   
+                #_opening_balance -> FIRST REVISION
+                if l.find('Saldo Inicial', 0, len('Saldo Inicial'))  > -1:
+                    line_dict['startingbalance'] = self.extract_float(l)
+                #_opening_balance -> SECOND REVISION   
+                elif l.find('INICIAL', 0, len('INICIAL'))  > -1:
+                    line_dict['startingbalance'] = self.extract_float(l)
+                        
+                #_closing_balance -> FIRST REVISION
+                if l.find('FINAL', 0, len('FINAL'))  > -1:
+                    line_dict['endingbalance'] = self.extract_float(l)
+                #_closing_balance -> SECOND REVISION    
+                elif l.find('Saldo Final', 0, len('Saldo Final'))  > -1:
+                    line_dict['endingbalance'] = self.extract_float(l)
+                        
+            line_dict['ammount'] = float( line_dict['startingbalance'] ) + float( line_dict['endingbalance'] )
+            line_dict['id'] = line_dict['bookingdate'] + ' - ' + line_dict['account_number']
+            self.line_dict = line_dict
+          
+            return line_dict
+        
+        else:
+            raise osv.except_osv(_('Error'),
+                        _('Error en la importación! La cuenta especificada en el archivo no coincide con la seleccionada en el asistente de importacion'))
+        
     def statement_lines ( self, rec ):
         parser = BCRParser()
         mapping = {
@@ -349,10 +359,36 @@ class BCRParser( object ):
             output.append( self.parse_stamenent_record( rec ) )
                 
         return output
+    
+    #check if the account_number in the file match with the selected in the wizard.
+    def match_account(self, list_split, account_number_wizard):
+        accnumber = ''
+        for l in list_split:            
+             #_account_number -> FIRST REVISION
+            if l.find('Movimiento de Cuenta Corriente', 0, len('Movimiento de Cuenta Corriente')) > -1:
+                accnumber = self.extract_number(l)                
+                break
+            
+             #_account_number -> SECOND REVISION        
+            elif (l.find('MOVIMIENTO DE LA CUENTA  CORRIENTE No.', 0, len('MOVIMIENTO DE LA CUENTA  CORRIENTE No.')) > -1):
+                account_str = self.extract_number(l)   
+                #001-0246447-0
+                account_1 = account_str[2:3] #1
+                account_2 = account_str[4:]  #246447-0
+                account_complete = account_1+self.extract_number(account_2)#12464470
+                accnumber = self.extract_number(account_complete)         
+                break
+        
+        #If return True, the account_number in the wizard and the account in the file are the same.
+        if accnumber.find(account_number_wizard) > -1:
+            return True
+        else:
+            return False
+    
 
 def parse_file( filename ):
     bacfile = open( filename, "r" )
-    p = BCRParser().parse( bacfile.readlines() )
+    p = BCRParser().parse(bacfile.readlines())
 
 def main():
     """The main function, currently just calls a dummy filename

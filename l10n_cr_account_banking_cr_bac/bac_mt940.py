@@ -22,12 +22,13 @@
 #
 
 from account_banking.parsers import models
-from tools.translate import _
 from mt940_parser import BACParser
 import re
-import osv
+from osv import osv, fields
 import logging
 import datetime
+from tools.translate import _
+import base64
 
 bt = models.mem_bank_transaction
 logger = logging.getLogger('bac_mt940')
@@ -155,8 +156,8 @@ class parser_bac_mt940(models.parser):
             This format is available through
             the BAC web interface.
             ''')
-
-    def parse(self, cr, data,**kwargs):
+    
+    def parse(self, cr, statements_file,**kwargs):
         '''
             ** Kwargs parameter is used for a dynamic list of parameters. 
             The wizard imported extracts used in all parsers and not all parsers have all the necessary information in your file, 
@@ -171,91 +172,112 @@ class parser_bac_mt940(models.parser):
         list_record = []
         inversion_colocada = 0
         
+        """
+            **kwargs have all the parameters that have the wizard and 
+            has all the parameters passed from the wizard before calling 
+            the method that parses the file.            
+        """        
+        #pass to encoding with the correct type of file.        
+        data = base64.decodestring(statements_file)
+    
         # Split into statements
         statements = [st for st in re.split('[\r\n]*(?=:20:)', data)]
         # Split by records
         statement_list = [re.split('[\r\n ]*(?=:\d\d[\w]?:)', st) for st in statements]
-
-        for statement_lines in statement_list:
-            stmnt = statement()
-            
-            """EXTRACCION DE DATOS """
-            for record in statement_lines:               
-                records = parser.parse_record(record)
-
-                if records is not None:
-                    ############START PAGO CAPITAL INVERSION
-                    if records['recordid'] == '60F':
-                        start_balance = float(records['startingbalance'])
-                    if records['recordid'] == '61':
-                        amount = float(records['amount'])
-                    if records['recordid'] == '86' and records['infoline1'] == 'PAGO CAPITAL INVERSION':
-                        start_amount = amount
-                        start_balance += amount #con la suma ya realizada.
-                    ############END PAGO CAPITAL INVERSION
-                    
-                    ############START INVERSION COLOCADA
-                    if records['recordid'] == '86':
-                        cad = records['infoline1']
-                        if cad.find('INVERSION COLOCADA') > 0:
-                            inversion_colocada = amount
-                            
-                    if records['recordid'] == '62F':                                         
-                        ending_balance = (inversion_colocada + float(records['endingbalance']))
-
-            if records is not None:            
-                """ACTUALIZACION DE DATOS """
-                for record in statement_lines:   
-                    if record is not None:             
-                        records = parser.parse_record(record)    
+        
+        '''
+            In the first position of the statement_list is the account number.
+            If the account number that pass in the **kwargs dictionary.                
+        '''
+        account_number_wizard = kwargs['account_number']
+        #statement_list is a list, extract the first position 
+        accnum = statement_list[1][1]    
+        
+        #find the number in the account string.
+        if accnum.find(account_number_wizard) > -1:
+            for statement_lines in statement_list:
+                stmnt = statement()
                 
-                        if (records['recordid'] == '60F'):
-                            dic = {'startingbalance':start_balance}
-                            records.update(dic)
+                """EXTRACCION DE DATOS """
+                for record in statement_lines:               
+                    records = parser.parse_record(record,**kwargs)
+    
+                    if records is not None:
+                        ############START PAGO CAPITAL INVERSION
+                        if records['recordid'] == '60F':
+                            start_balance = float(records['startingbalance'])
+                        if records['recordid'] == '61':
+                            amount = float(records['amount'])
+                        if records['recordid'] == '86' and records['infoline1'] == 'PAGO CAPITAL INVERSION':
+                            start_amount = amount
+                            start_balance += amount #con la suma ya realizada.
+                        ############END PAGO CAPITAL INVERSION
                         
-                        if (records['recordid'] == '62F'):
-                            dic = {'endingbalance': ending_balance}
-                            records.update(dic)
-
-                        if (records['recordid'] == '64'):
-                            dic = {'endingbalance': ending_balance}
-                            records.update(dic)
-                            
-                        #SI LA LINEA NO ES INVERSION COLOCADA O PAGO CAPITAL INVERSION, SE AGREGA A LA LISTA
-                        #PAGO_CAPITAL
-                        if (records['recordid'] == '86'):
+                        ############START INVERSION COLOCADA
+                        if records['recordid'] == '86':
                             cad = records['infoline1']
-                            
-                            if (cad != "PAGO CAPITAL INVERSION") and (cad.find("INVERSION COLOCADA") < 0): 
-                                list_record.append(records)
+                            if cad.find('INVERSION COLOCADA') > 0:
+                                inversion_colocada = amount
                                 
-                        if (records['recordid'] == '61'):
-                            try:
-                                if float(records['amount']) != start_amount and float(records['amount']) != inversion_colocada:
+                        if records['recordid'] == '62F':                                         
+                            ending_balance = (inversion_colocada + float(records['endingbalance']))
+    
+                if records is not None:            
+                    """ACTUALIZACION DE DATOS """
+                    for record in statement_lines:   
+                        if record is not None:             
+                            records = parser.parse_record(record)    
+                    
+                            if (records['recordid'] == '60F'):
+                                dic = {'startingbalance':start_balance}
+                                records.update(dic)
+                            
+                            if (records['recordid'] == '62F'):
+                                dic = {'endingbalance': ending_balance}
+                                records.update(dic)
+    
+                            if (records['recordid'] == '64'):
+                                dic = {'endingbalance': ending_balance}
+                                records.update(dic)
+                                
+                            #SI LA LINEA NO ES INVERSION COLOCADA O PAGO CAPITAL INVERSION, SE AGREGA A LA LISTA
+                            #PAGO_CAPITAL
+                            if (records['recordid'] == '86'):
+                                cad = records['infoline1']
+                                
+                                if (cad != "PAGO CAPITAL INVERSION") and (cad.find("INVERSION COLOCADA") < 0): 
                                     list_record.append(records)
-                            except:
-                                list_record.append(records)
-                        #####################################################################
-                        
-                        if (records['recordid'] != '61' and records['recordid'] != '86' ):
-                            list_record.append(records)                
-                
-                [stmnt.import_record(r) for r in list_record if r is not None]
-                
-                if stmnt.is_valid():
-                    result.append(stmnt)
-                    list_record = []
-                    inversion_colocada = 0
-                    start_balance = 0
-                else:
-                    logger.info("Invalid Statement:")
-                    logger.info(records[0])
-                    logger.info(records[1])
-                    logger.info(records[2])
-                    logger.info(records[3])
-                    logger.info(records[4])
-                    list_record = []
-
-        return result
-
+                                    
+                            if (records['recordid'] == '61'):
+                                try:
+                                    if float(records['amount']) != start_amount and float(records['amount']) != inversion_colocada:
+                                        list_record.append(records)
+                                except:
+                                    list_record.append(records)
+                            #####################################################################
+                            
+                            if (records['recordid'] != '61' and records['recordid'] != '86' ):
+                                list_record.append(records)                
+                    
+                    [stmnt.import_record(r) for r in list_record if r is not None]
+                    
+                    if stmnt.is_valid():
+                        result.append(stmnt)
+                        list_record = []
+                        inversion_colocada = 0
+                        start_balance = 0
+                    else:
+                        logger.info("Invalid Statement:")
+                        logger.info(records[0])
+                        logger.info(records[1])
+                        logger.info(records[2])
+                        logger.info(records[3])
+                        logger.info(records[4])
+                        list_record = []
+            return result
+        
+        else:
+            raise osv.except_osv(_('Error'),
+                        _('Error en la importación! La cuenta especificada en el archivo no coincide con la seleccionada en el asistente de importacion'))
+        
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
