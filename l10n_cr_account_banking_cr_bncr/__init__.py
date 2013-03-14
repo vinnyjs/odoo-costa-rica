@@ -19,6 +19,6 @@
 #
 ##############################################################################
 
-import davivienda_format
+import bncr_format
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

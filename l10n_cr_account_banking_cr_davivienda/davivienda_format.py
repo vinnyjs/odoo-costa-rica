@@ -24,10 +24,11 @@ from account_banking.parsers import models
 from tools.translate import _
 from davivienda_parser import DaviviendaParser
 import re
-import osv
+from osv import osv, fields
 import logging
 import pprint
 from datetime import datetime
+import base64
 
 bt = models.mem_bank_transaction
 logger = logging.getLogger( 'davivienda_logger' )
@@ -76,6 +77,7 @@ class statement(models.mem_bank_statement):
     
     def _account_number(self, record):
         self.local_account = record['account_number']
+        self.local_currency = record['currencycode']
 
     def _statement_number(self, record):
         self.id = record['id']
@@ -133,7 +135,8 @@ class parser_davivienda( models.parser ):
             This format is available through
             the Davivienda  web interface.
             ''')
-    '''
+    
+    '''    
         ** Kwargs parameter is used for a dynamic list of parameters. 
         The wizard imported extracts used in all parsers and not all parsers have all the necessary information in your file, 
         so get information from the wizard and passed by the ** kwargs. 
@@ -146,10 +149,17 @@ class parser_davivienda( models.parser ):
         extract its value, with the respective key
     '''
 
-    def parse(self, cr, data, **kwargs):
+    def parse(self, cr, statements_file, **kwargs):
         result = []
         parser = DaviviendaParser()
         stmnt = statement()
+        """
+            **kwargs have all the parameters that have the wizard and 
+            has all the parameters passed from the wizard before calling 
+            the method that parses the file.            
+        """        
+        #pass to encoding with the correct type of file.
+        data = base64.decodestring(statements_file)
         
         #parse the data for the header of the stament.
         records = parser.parse_stamenent_record(data, **kwargs)        
@@ -171,5 +181,5 @@ class parser_davivienda( models.parser ):
             result.append(stmnt)
                       
         return result
-
+      
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
