@@ -57,7 +57,7 @@ class DaviviendaParser( object ):
             'currencycode': '', #currencycode
             'endingbalance': 0.0, #_closing_balance
             'bookingdate': '', #moving_date
-            'ammount': 0.0,
+            'amount': 0.0,
             'id': '',
         }
         
@@ -104,13 +104,13 @@ class DaviviendaParser( object ):
                 while True:
                     last_position -= 1
                     last_line = list_split[last_position]
-                    if last_line is not "":
+                    if len(last_line) > 0 and last_line != "" and last_line != '\r':
                         break       
             last_line_split = last_line.split(';')
             endingbalance += float(last_line_split[5].replace(",",""))      
             line_dict['endingbalance'] =  str(endingbalance)
             
-            line_dict['ammount'] = startingbalance + endingbalance
+            line_dict['amount'] = str(startingbalance + endingbalance)
             line_dict['id'] = kwargs['date_from_str'] + ' - '+ kwargs['date_to_str'] + ' Extracto Davivienda ' + line_dict['account_number']
             
             return line_dict
@@ -153,7 +153,7 @@ class DaviviendaParser( object ):
                 if last_line is not "":
                     break
                     
-        sub_list = list_split [start:end+1]
+        sub_list = list_split [start:end]
         for sub in sub_list:
             line = sub.split(';')
             #effective_date
@@ -181,7 +181,17 @@ class DaviviendaParser( object ):
            
             lines.append(copy(mapping))
                             
-        return lines    
+        return lines   
+    
+    #clear special characters in a row. 
+    def clean_special_characters(self, text_celd):
+        special_characters = {'\r':''}
+         
+        for i, j in special_characters.iteritems():
+            text = text_celd.replace(i, j)    
+            
+        #remove all the blank space.
+        return re.sub(r'\s', '', text) 
     
     """
     ** Kwargs parameter is used for a dynamic list of parameters. 
@@ -204,7 +214,7 @@ class DaviviendaParser( object ):
         matchdict = self.statement_record(rec, **kwargs);
 
         # Remove members set to None
-        matchdict = dict( [( k, v ) for k, v in matchdict.iteritems() if v] )
+        #matchdict = dict( [( k, v ) for k, v in matchdict.iteritems() if v] )
 
         matchkeys = set( matchdict.keys() )
         needstrip = set( [ 'transref', 'account_number', 'statementnr', 'currencycode', 'endingbalance', 'bookingdate'] )
@@ -218,7 +228,7 @@ class DaviviendaParser( object ):
             matchdict[field] = float( matchdict[field].replace( ',', '.' ) )
 
         # Convert date fields
-        needdate = set( ["bookingdate"] )
+        needdate = set( ["bookingdate", "effective_date", "execution_date"] )
                 
         for field in matchkeys & needdate:            
             datestring = matchdict[field]

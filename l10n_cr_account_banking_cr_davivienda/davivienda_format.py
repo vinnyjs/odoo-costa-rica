@@ -104,7 +104,7 @@ class statement(models.mem_bank_statement):
     
     def _execution_date_transferred_amount (self, record):        
         self.execution_date = record['bookingdate']       
-        self.transferred_amount = float(record['ammount'])
+        self.transferred_amount = float(record['amount'])
 
     def transaction_info(self, record):
         '''
@@ -161,7 +161,7 @@ class parser_davivienda( models.parser ):
         #pass to encoding with the correct type of file.
         data = base64.decodestring(statements_file)
         
-        #parse the data for the header of the stament.
+        #parse the data for the header of the stament.amount
         records = parser.parse_stamenent_record(data, **kwargs)        
         
         stmnt._transmission_number(records)
