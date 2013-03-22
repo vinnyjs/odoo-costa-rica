@@ -35,6 +35,7 @@ class hr_contract(osv.osv):
     _inherit = 'hr.contract'
     _description = 'Employee Contract'
     _columns = {
+        'working_hours': fields.many2one('resource.calendar','Working Schedule', required=True),
         'schedule_pay': fields.selection([
             ('fortnightly', 'Fortnightly'),
             ('monthly', 'Monthly'),
