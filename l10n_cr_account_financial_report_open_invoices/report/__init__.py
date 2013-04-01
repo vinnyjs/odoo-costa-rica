@@ -19,25 +19,4 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-
-import time
-
-from osv import fields, osv
-
-
-class l10n_cr_AccountReportPartnersLedgerWizard(osv.osv_memory):
-    """Will launch partner ledger report and pass required args"""
-
-    _inherit = "partners.ledger.webkit"
-    _name = "partners.ledger.webkit"
-    _description = "Partner Ledger Report"
-
-
-    def _print_report(self, cursor, uid, ids, data, context=None):
-        context = context or {}
-        # we update form with display account value
-        data = self.pre_print_report(cursor, uid, ids, data, context=context)
-        return {'type': 'ir.actions.report.xml',
-                'report_name': 'account_financial_report_webkit.account.account_report_partners_ledger_webkit',
-                'datas': data}
-
+import l10n_cr_account_report_open_invoices
