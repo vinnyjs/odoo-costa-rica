@@ -68,6 +68,7 @@ class l10n_cr_PartnersLedgerWebkit(PartnersLedgerWebkit):
             temp_tup = (currency_name, accounts_curr_list[i])
             accounts_by_curr.append(temp_tup)
             i += 1
+            print (temp_tup)
             
         return accounts_by_curr
 

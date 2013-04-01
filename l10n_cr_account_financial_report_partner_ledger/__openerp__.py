@@ -20,22 +20,19 @@
 #
 ##############################################################################
 
-
 {
-    'name': 'Webkit based extended report financial report',
+    'name': 'Account Financial Report Partner Ledger',
     'description': "",
     'version': '1.0',
     'author': 'CLEARCORP S.A.',
     'category': 'Finance',
     'website': "http://clearcorp.co.cr",
     'images': [],
-    'depends': ['account' ],
+    'depends': ['account','account_financial_report_webkit' ],
     'init_xml': [],
     'demo_xml' : [],
-    'update_xml': ['account_move_line_view.xml',
-                   'data/financial_webkit_header.xml',
-                   'report/report.xml',
-                   'wizard/account_bank_balances_wizard_view.xml',
+    'update_xml': ['report/report.xml',
+                   'wizard/l10n_cr_partners_ledger_wizard_view.xml',
                    'report_menus.xml',
                    'account_view.xml',
                    ],

@@ -1,0 +1,266 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* l10n_cr_account_financial_report_partner_ledger
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-04-01 19:36+0000\n"
+"PO-Revision-Date: 2013-04-01 19:36+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: l10n_cr_account_financial_report_partner_ledger
+#: constraint:partners.ledger.webkit:0
+msgid "When no Fiscal year is selected, you must choose to filter by periods or by date."
+msgstr "Cuando no se selecciona ningún año fiscal, se debe elegir para filtrar por períodos o por fecha."
+
+#. module: l10n_cr_account_financial_report_partner_ledger
+#: report:addons/l10n_cr_account_financial_report_partner_ledger/report/l10n_cr_account_report_partners_ledger.mako:195
+msgid "')}</div>\n"
+"                        <div class=\"act_as_cell amount\" style=\"width: 115px;\">${_('"
+msgstr "')}</div>\n"
+"                        <div class=\"act_as_cell amount\" style=\"width: 115px;\">${_('"
+
+#. module: l10n_cr_account_financial_report_partner_ledger
+#: report:addons/l10n_cr_account_financial_report_partner_ledger/report/l10n_cr_account_report_partners_ledger.mako:21
+msgid "No"
+msgstr "No"
+
+#. module: l10n_cr_account_financial_report_partner_ledger
+#: view:partners.ledger.webkit:0
+msgid "Layout Options"
+msgstr "Opciones de Diseño"
+
+#. module: l10n_cr_account_financial_report_partner_ledger
+#: report:addons/l10n_cr_account_financial_report_partner_ledger/report/l10n_cr_account_report_partners_ledger.mako:168
+msgid "Curr."
+msgstr "Curr."
+
+#. module: l10n_cr_account_financial_report_partner_ledger
+#: report:addons/l10n_cr_account_financial_report_partner_ledger/report/l10n_cr_account_report_partners_ledger.mako:187
+msgid "')}</div>\n"
+"                        ## journal\n"
+"                        <div class=\"act_as_cell\" style=\"width: 70px;\">${_('"
+msgstr "')}</div>\n"
+"                        ## journal\n"
+"                        <div class=\"act_as_cell\" style=\"width: 70px;\">${_('"
+
+#. module: l10n_cr_account_financial_report_partner_ledger
+#: report:addons/l10n_cr_account_financial_report_partner_ledger/report/l10n_cr_account_report_partners_ledger.mako:159
+msgid "Debit"
+msgstr "Débito"
+
+#. module: l10n_cr_account_financial_report_partner_ledger
+#: report:addons/l10n_cr_account_financial_report_partner_ledger/report/l10n_cr_account_report_partners_ledger.mako:39
+#: report:addons/l10n_cr_account_financial_report_partner_ledger/report/l10n_cr_account_report_partners_ledger.mako:190
+msgid "Initial Balance"
+msgstr "Balance inicial"
+
+#. module: l10n_cr_account_financial_report_partner_ledger
+#: report:addons/l10n_cr_account_financial_report_partner_ledger/report/l10n_cr_account_report_partners_ledger.mako:443
+#: report:addons/l10n_cr_account_financial_report_partner_ledger/report/l10n_cr_account_report_partners_ledger.mako:445
+msgid "Total for Accounts in "
+msgstr "Total de cuentas en "
+
+#. module: l10n_cr_account_financial_report_partner_ledger
+#: report:addons/l10n_cr_account_financial_report_partner_ledger/report/l10n_cr_account_report_partners_ledger.mako:145
+msgid "Journal"
+msgstr "Diario"
+
+#. module: l10n_cr_account_financial_report_partner_ledger
+#: constraint:account.account:0
+msgid "Error ! You can not create recursive accounts."
+msgstr "¡Error! No se pueden crear cuentas recursivas."
+
+#. module: l10n_cr_account_financial_report_partner_ledger
+#: report:addons/l10n_cr_account_financial_report_partner_ledger/report/l10n_cr_account_report_partners_ledger.mako:332
+#: report:addons/l10n_cr_account_financial_report_partner_ledger/report/l10n_cr_account_report_partners_ledger.mako:397
+msgid "Saldo"
+msgstr "Saldo"
+
+#. module: l10n_cr_account_financial_report_partner_ledger
+#: report:addons/l10n_cr_account_financial_report_partner_ledger/report/l10n_cr_account_report_partners_ledger.mako:139
+msgid "Date"
+msgstr "Fecha"
+
+#. module: l10n_cr_account_financial_report_partner_ledger
+#: report:addons/l10n_cr_account_financial_report_partner_ledger/report/l10n_cr_account_report_partners_ledger.mako:28
+msgid "Chart of Account"
+msgstr "Catálogo de cuentas"
+
+#. module: l10n_cr_account_financial_report_partner_ledger
+#: report:addons/l10n_cr_account_financial_report_partner_ledger/report/l10n_cr_account_report_partners_ledger.mako:95
+msgid "Accounts in "
+msgstr "Cuentas en "
+
+#. module: l10n_cr_account_financial_report_partner_ledger
+#: report:addons/l10n_cr_account_financial_report_partner_ledger/report/l10n_cr_account_report_partners_ledger.mako:38
+msgid "Target Moves"
+msgstr "Movimientos destino"
+
+#. module: l10n_cr_account_financial_report_partner_ledger
+#: report:addons/l10n_cr_account_financial_report_partner_ledger/report/l10n_cr_account_report_partners_ledger.mako:45
+msgid "From:"
+msgstr "Desde:"
+
+#. module: l10n_cr_account_financial_report_partner_ledger
+#: report:addons/l10n_cr_account_financial_report_partner_ledger/report/l10n_cr_account_report_partners_ledger.mako:59
+msgid "To:"
+msgstr "Hasta:"
+
+#. module: l10n_cr_account_financial_report_partner_ledger
+#: model:ir.model,name:l10n_cr_account_financial_report_partner_ledger.model_account_account
+msgid "Account"
+msgstr "Cuenta"
+
+#. module: l10n_cr_account_financial_report_partner_ledger
+#: sql_constraint:account.account:0
+msgid "The code of the account must be unique per company !"
+msgstr "¡El código de la cuenta debe ser único por compañía!"
+
+#. module: l10n_cr_account_financial_report_partner_ledger
+#: model:ir.model,name:l10n_cr_account_financial_report_partner_ledger.model_partners_ledger_webkit
+msgid "Partner Ledger Report"
+msgstr "Reporte de Libro Mayor de Empresa"
+
+#. module: l10n_cr_account_financial_report_partner_ledger
+#: constraint:partners.ledger.webkit:0
+msgid "The fiscalyear, periods or chart of account chosen have to belong to the same company."
+msgstr "El año fiscal, períodos o plan contable elegidos deben pertenecer a la misma compañía."
+
+#. module: l10n_cr_account_financial_report_partner_ledger
+#: report:addons/l10n_cr_account_financial_report_partner_ledger/report/l10n_cr_account_report_partners_ledger.mako:157
+msgid "Credit"
+msgstr "Crédito"
+
+#. module: l10n_cr_account_financial_report_partner_ledger
+#: report:addons/l10n_cr_account_financial_report_partner_ledger/report/l10n_cr_account_report_partners_ledger.mako:29
+msgid "Fiscal Year"
+msgstr "Año fiscal"
+
+#. module: l10n_cr_account_financial_report_partner_ledger
+#: model:ir.actions.act_window,name:l10n_cr_account_financial_report_partner_ledger.action_account_partners_ledger_menu_webkit
+msgid "Partner Ledger"
+msgstr "Libro Mayor de Empresa"
+
+#. module: l10n_cr_account_financial_report_partner_ledger
+#: report:addons/l10n_cr_account_financial_report_partner_ledger/report/l10n_cr_account_report_partners_ledger.mako:37
+msgid "Accounts Filter"
+msgstr "Filtro de cuentas"
+
+#. module: l10n_cr_account_financial_report_partner_ledger
+#: report:addons/l10n_cr_account_financial_report_partner_ledger/report/l10n_cr_account_report_partners_ledger.mako:161
+msgid "Manual Move"
+msgstr "Movimientos manuales"
+
+#. module: l10n_cr_account_financial_report_partner_ledger
+#: report:addons/l10n_cr_account_financial_report_partner_ledger/report/l10n_cr_account_report_partners_ledger.mako:143
+msgid "Entry"
+msgstr "Apunte"
+
+#. module: l10n_cr_account_financial_report_partner_ledger
+#: report:addons/l10n_cr_account_financial_report_partner_ledger/report/l10n_cr_account_report_partners_ledger.mako:149
+msgid "Label"
+msgstr "Etiqueta"
+
+#. module: l10n_cr_account_financial_report_partner_ledger
+#: report:addons/l10n_cr_account_financial_report_partner_ledger/report/l10n_cr_account_report_partners_ledger.mako:70
+msgid "Custom Filter"
+msgstr "Filtro personalizado"
+
+#. module: l10n_cr_account_financial_report_partner_ledger
+#: report:addons/l10n_cr_account_financial_report_partner_ledger/report/l10n_cr_account_report_partners_ledger.mako:21
+msgid "Computed"
+msgstr "Procesado"
+
+#. module: l10n_cr_account_financial_report_partner_ledger
+#: report:addons/l10n_cr_account_financial_report_partner_ledger/report/l10n_cr_account_report_partners_ledger.mako:163
+msgid "Cumul. Bal."
+msgstr "Bal. Acumul."
+
+#. module: l10n_cr_account_financial_report_partner_ledger
+#: report:addons/l10n_cr_account_financial_report_partner_ledger/report/l10n_cr_account_report_partners_ledger.mako:151
+msgid "Rec."
+msgstr "Rec."
+
+#. module: l10n_cr_account_financial_report_partner_ledger
+#: report:addons/l10n_cr_account_financial_report_partner_ledger/report/l10n_cr_account_report_partners_ledger.mako:191
+#: report:addons/l10n_cr_account_financial_report_partner_ledger/report/l10n_cr_account_report_partners_ledger.mako:193
+msgid "')}</div>\n"
+"                        <div class=\"act_as_cell amount\" style=\"width: 100px;\">${_('"
+msgstr "')}</div>\n"
+"                        <div class=\"act_as_cell amount\" style=\"width: 100px;\">${_('"
+
+#. module: l10n_cr_account_financial_report_partner_ledger
+#: constraint:account.account:0
+msgid "Configuration Error! \n"
+"You can not select an account type with a deferral method different of \"Unreconciled\" for accounts with internal type \"Payable/Receivable\"! "
+msgstr "¡Error de configuración! \n"
+"¡No se puede seleccionar un tipo de cuenta con un método diferente de aplazamiento \"no reconciliadas\" para las cuentas con el tipo interno \"por pagar / por cobrar\"! "
+
+#. module: l10n_cr_account_financial_report_partner_ledger
+#: report:addons/l10n_cr_account_financial_report_partner_ledger/report/l10n_cr_account_report_partners_ledger.mako:34
+msgid "Periods Filter"
+msgstr "Periods Filter"
+
+#. module: l10n_cr_account_financial_report_partner_ledger
+#: report:addons/l10n_cr_account_financial_report_partner_ledger/report/l10n_cr_account_report_partners_ledger.mako:141
+msgid "Period"
+msgstr "Período"
+
+#. module: l10n_cr_account_financial_report_partner_ledger
+#: report:addons/l10n_cr_account_financial_report_partner_ledger/report/l10n_cr_account_report_partners_ledger.mako:32
+msgid "Dates Filter"
+msgstr "Filtros de fechas"
+
+#. module: l10n_cr_account_financial_report_partner_ledger
+#: report:addons/l10n_cr_account_financial_report_partner_ledger/report/l10n_cr_account_report_partners_ledger.mako:134
+msgid "No Partner"
+msgstr "Sin empresa"
+
+#. module: l10n_cr_account_financial_report_partner_ledger
+#: report:addons/l10n_cr_account_financial_report_partner_ledger/report/l10n_cr_account_report_partners_ledger.mako:183
+msgid "')}</div>\n"
+"                        ## period\n"
+"                        <div class=\"act_as_cell\" style=\"width: 70px;\">${_('"
+msgstr "')}</div>\n"
+"                        ## period\n"
+"                        <div class=\"act_as_cell\" style=\"width: 70px;\">${_('"
+
+#. module: l10n_cr_account_financial_report_partner_ledger
+#: report:addons/l10n_cr_account_financial_report_partner_ledger/report/l10n_cr_account_report_partners_ledger.mako:153
+msgid "Invoice"
+msgstr "Factura"
+
+#. module: l10n_cr_account_financial_report_partner_ledger
+#: constraint:account.account:0
+msgid "Configuration Error! \n"
+"You can not define children to an account with internal type different of \"View\"! "
+msgstr "¡Error de configuración! "
+
+#. module: l10n_cr_account_financial_report_partner_ledger
+#: report:addons/l10n_cr_account_financial_report_partner_ledger/report/l10n_cr_account_report_partners_ledger.mako:147
+msgid "Partner"
+msgstr "Empresa"
+
+#. module: l10n_cr_account_financial_report_partner_ledger
+#: report:addons/l10n_cr_account_financial_report_partner_ledger/report/l10n_cr_account_report_partners_ledger.mako:155
+msgid "Payments"
+msgstr "Pagos"
+
+#. module: l10n_cr_account_financial_report_partner_ledger
+#: report:addons/l10n_cr_account_financial_report_partner_ledger/report/l10n_cr_account_report_partners_ledger.mako:166
+msgid "Curr. Balance"
+msgstr "Balance Act."
+
+#. module: l10n_cr_account_financial_report_partner_ledger
+#: report:addons/l10n_cr_account_financial_report_partner_ledger/report/l10n_cr_account_report_partners_ledger.mako:21
+msgid "Opening Entries"
+msgstr "Opening Entries"
+

@@ -20,27 +20,7 @@
 #
 ##############################################################################
 
-
-{
-    'name': 'Webkit based extended report financial report',
-    'description': "",
-    'version': '1.0',
-    'author': 'CLEARCORP S.A.',
-    'category': 'Finance',
-    'website': "http://clearcorp.co.cr",
-    'images': [],
-    'depends': ['account' ],
-    'init_xml': [],
-    'demo_xml' : [],
-    'update_xml': ['account_move_line_view.xml',
-                   'data/financial_webkit_header.xml',
-                   'report/report.xml',
-                   'wizard/account_bank_balances_wizard_view.xml',
-                   'report_menus.xml',
-                   'account_view.xml',
-                   ],
-    'test': [],
-    'active': False,
-    'installable': True,
-    'license': 'AGPL-3',
-}
+import account
+import wizard 
+import report
+import account_account

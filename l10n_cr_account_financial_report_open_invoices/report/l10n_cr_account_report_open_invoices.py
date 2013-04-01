@@ -35,7 +35,7 @@ from openerp.osv import osv
 from openerp.addons.report_webkit import report_helper
 import addons
 
-from l10n_cr_partners_ledger import l10n_cr_PartnersLedgerWebkit
+from l10n_cr_account_financial_report_partner_ledger.report.l10n_cr_account_report_partners_ledger import l10n_cr_PartnersLedgerWebkit
 from openerp.addons.account_financial_report_webkit.report.webkit_parser_header_fix import HeaderFooterTextWebKitParser
 
 class l10n_cr_PartnersOpenInvoicesWebkit(l10n_cr_PartnersLedgerWebkit):
