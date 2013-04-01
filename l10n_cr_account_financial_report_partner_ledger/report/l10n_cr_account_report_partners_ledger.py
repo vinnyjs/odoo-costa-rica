@@ -180,5 +180,5 @@ class l10n_cr_PartnersLedgerWebkit(PartnersLedgerWebkit):
 
 HeaderFooterTextWebKitParser('report.account_financial_report_webkit.account.account_report_partners_ledger_webkit',
                              'account.account',
-                             'addons/l10n_cr_account_financial_report_webkit/report/l10n_cr_account_report_partners_ledger.mako',
+                             'addons/l10n_cr_account_financial_report_webkit/report/l10n_cr_account_financial_report_partners_ledger.mako',
                              parser=l10n_cr_PartnersLedgerWebkit)

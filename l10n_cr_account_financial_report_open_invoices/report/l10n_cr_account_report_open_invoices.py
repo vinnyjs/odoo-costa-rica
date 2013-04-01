@@ -76,5 +76,5 @@ class l10n_cr_PartnersOpenInvoicesWebkit(l10n_cr_PartnersLedgerWebkit):
 
 HeaderFooterTextWebKitParser('report.account_financial_report_webkit.account.account_report_open_invoices_webkit',
                              'account.account',
-                             'addons/l10n_cr_account_financial_report_webkit/report/l10n_cr_account_report_open_invoices.mako',
+                             'addons/l10n_cr_account_financial_report_webkit/report/l10n_cr_account_financial_report_open_invoices.mako',
                              parser=l10n_cr_PartnersOpenInvoicesWebkit)
