@@ -36,7 +36,7 @@ from openerp.addons.report_webkit import report_helper
 import addons
 
 from l10n_cr_account_financial_report_partner_ledger.report.l10n_cr_account_report_partners_ledger import l10n_cr_PartnersLedgerWebkit
-from openerp.addons.account_financial_report_webkit.report.webkit_parser_header_fix import HeaderFooterTextWebKitParser
+from report import report_sxw
 
 class l10n_cr_PartnersOpenInvoicesWebkit(l10n_cr_PartnersLedgerWebkit):
 
@@ -74,7 +74,7 @@ class l10n_cr_PartnersOpenInvoicesWebkit(l10n_cr_PartnersLedgerWebkit):
         else:
             return False
 
-HeaderFooterTextWebKitParser('report.account_financial_report_webkit.account.account_report_open_invoices_webkit',
+report_sxw.report_sxw('report.account_financial_report_open_invoices_webkit',
                              'account.account',
-                             'addons/l10n_cr_account_financial_report_webkit/report/l10n_cr_account_financial_report_open_invoices.mako',
+                             'addons/l10n_cr_account_financial_report_open_invoices/report/l10n_cr_account_report_open_invoices.mako',
                              parser=l10n_cr_PartnersOpenInvoicesWebkit)

@@ -21,6 +21,6 @@
 ##############################################################################
 
 import account
-from . import wizard
-from . import report
+import wizard
+import report
 

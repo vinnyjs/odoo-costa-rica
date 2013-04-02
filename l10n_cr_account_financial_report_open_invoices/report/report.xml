@@ -4,7 +4,7 @@
             
     <record id="account_financial_report_webkit.account_report_open_invoices_webkit" model="ir.actions.report.xml">
              <field name="report_type">webkit</field>
-             <field name="report_name">account_financial_report_webkit.account.account_report_open_invoices_webkit</field>
+             <field name="report_name">account_financial_report_open_invoices_webkit</field>
              <field eval="[(6,0,[])]" name="groups_id"/>
              <field eval="0" name="multi"/>
              <field eval="0" name="auto"/>
