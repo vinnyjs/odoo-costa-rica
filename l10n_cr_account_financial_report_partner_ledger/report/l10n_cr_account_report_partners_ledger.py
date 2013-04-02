@@ -29,7 +29,7 @@ from tools.translate import _
 from datetime import datetime
 
 from openerp.addons.account_financial_report_webkit.report.partners_ledger import PartnersLedgerWebkit
-from openerp.addons.account_financial_report_webkit.report.webkit_parser_header_fix import HeaderFooterTextWebKitParser
+from report import report_sxw
 
 class l10n_cr_PartnersLedgerWebkit(PartnersLedgerWebkit):
 
@@ -68,8 +68,7 @@ class l10n_cr_PartnersLedgerWebkit(PartnersLedgerWebkit):
             temp_tup = (currency_name, accounts_curr_list[i])
             accounts_by_curr.append(temp_tup)
             i += 1
-            print (temp_tup)
-            
+
         return accounts_by_curr
 
     def get_amount(self,cr, uid, account_move_line, currency):
@@ -178,7 +177,7 @@ class l10n_cr_PartnersLedgerWebkit(PartnersLedgerWebkit):
         
         return initial_balance
 
-HeaderFooterTextWebKitParser('report.account_financial_report_webkit.account.account_report_partners_ledger_webkit',
+report_sxw.report_sxw('report.account_financial_report_partners_ledger_webkit',
                              'account.account',
-                             'addons/l10n_cr_account_financial_report_webkit/report/l10n_cr_account_financial_report_partners_ledger.mako',
+                             'addons/l10n_cr_account_report_partner_ledger/report/l10n_cr_account_report_partners_ledger.mako',
                              parser=l10n_cr_PartnersLedgerWebkit)

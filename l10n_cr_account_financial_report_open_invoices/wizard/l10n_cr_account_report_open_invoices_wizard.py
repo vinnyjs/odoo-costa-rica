@@ -47,6 +47,6 @@ class l10n_cr_AccountReportOpenInvoicesWizard(osv.osv_memory):
         # we update form with display account value
         data = self.pre_print_report(cursor, uid, ids, data, context=context)
         return {'type': 'ir.actions.report.xml',
-                'report_name': 'account_financial_report_webkit.account.account_report_open_invoices_webkit',
+                'report_name': 'account_financial_report_open_invoices_webkit',
                 'datas': data}
 
