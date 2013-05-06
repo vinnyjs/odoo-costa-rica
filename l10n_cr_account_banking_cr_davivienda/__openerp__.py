@@ -27,7 +27,7 @@
     'author': 'CLEARCORP S.A.',
     'website': 'http://www.clearcorp.co.cr',
     'category': 'Account Banking',
-    'depends': ['account_banking'],
+    'depends': ['account_banking','account_parser_type'],
     'init_xml': [],
     'update_xml': [],
     'demo_xml': [],
