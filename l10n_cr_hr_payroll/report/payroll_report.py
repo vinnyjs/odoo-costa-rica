@@ -64,20 +64,22 @@ class hr_payslip_run_report(report_sxw.rml_parse):
         return res
         
     def get_hn(self,line_ids):
-        code = 'HN'
-        res = 0
+        code1 = 'HN'
+        code2 = 'HNM'
+        res = 0.00
         for line in line_ids:
-            if line.code == code:
+            if line.code == code1:
                 res += line.number_of_hours
-                
+            elif line.code == code2:
+                res += line.number_of_hours
         return res
         
     def get_he(self,line_ids):
         code = 'HE'
-        res = 0
+        res = 0.00
         for line in line_ids:
             if line.code == code:
-                res += line.number_of_hours
+                res += line.number_of_hours        
         return res
         
         
