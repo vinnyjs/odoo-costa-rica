@@ -144,11 +144,14 @@ class payroll_report_for_month(TrialBalanceWebkit):
             return res
         
     def get_hn(self, cr, uid, payslips):
-        code = 'HN'
+        code1 = 'HN'
+        code2 = 'HNM'
         res = 0.00
         for payslip in payslips:
-            for line in payslip.line_ids:
-                if line.code == code:
+            for line in payslip.worked_days_line_ids:
+                if line.code == code1:
+                    res += line.number_of_hours
+                elif line.code == code2:
                     res += line.number_of_hours
         return res
         
@@ -156,7 +159,7 @@ class payroll_report_for_month(TrialBalanceWebkit):
         code = 'HE'
         res = 0.00
         for payslip in payslips:
-            for line in payslip.line_ids:
+            for line in payslip.worked_days_line_ids:
                 if line.code == code:
                     res += line.number_of_hours        
         return res
