@@ -137,6 +137,8 @@ class LafiseParser(object):
     '''     
     def statement_lines (self, records, rows):
         parser = LafiseParser()
+        line_id = 1 #To distinct the lines, in the case of someone are repeat. 
+        
         mapping = {
             'execution_date' : '',
             'effective_date' : '',
@@ -171,7 +173,7 @@ class LafiseParser(object):
             #execution_date
             mapping['execution_date'] = date #fecha_movimiento                       
            
-            str_line = self.clean_special_characters(line[2])
+            str_line = self.clean_special_characters(line[2]) + ' ID line: ' + str(line_id)
             
             mapping['local_currency'] = currencycode
             mapping['transfer_type'] = 'NTRF'
@@ -191,6 +193,7 @@ class LafiseParser(object):
                 mapping['transferred_amount'] =  -debit
             
             statements.append(copy(mapping))
+            line_id += 1
 
         return statements    
     
