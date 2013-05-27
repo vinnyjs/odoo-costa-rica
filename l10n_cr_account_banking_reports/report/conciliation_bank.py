@@ -217,7 +217,7 @@ class conciliation_bank(report_sxw.rml_parse, CommonReportHeaderWebkit):
                                                 uid,
                                                 [reconciled_account.id],
                                                 ['foreign_balance'],
-                                                end_date=end_daforeing_balancete,
+                                                end_date=end_date,
                                                 end_period_id=end_period.id,
                                                 fiscal_year_id=fiscal_year_id,
                                                 filter_type=filter_type,
