@@ -41,6 +41,9 @@
                     <field name="period_to" position="after">
                         <field name="special_period" attrs="{'readonly':[('filter', '!=', 'filter_period')]}"></field>
                     </field>
+                    <field name="fiscalyear_id" position="attributes">
+                        <attribute name="required">1</attribute>
+                    </field>
                 </data>
             </field>
         </record>

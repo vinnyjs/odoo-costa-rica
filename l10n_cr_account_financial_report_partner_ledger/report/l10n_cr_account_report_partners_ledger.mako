@@ -187,14 +187,14 @@
                         <div class="act_as_cell" style="width: 70px;">${_('')}</div>
                         ## journal
                         <div class="act_as_cell" style="width: 70px;">${_('')}</div>
-                        <div class="act_as_cell" style="width: 270px;">${_('Initial Balance')}</div>
+                        <div class="act_as_cell" style="width: 270px; font-size:10px; font-weight: bold;">${_('Initial Balance')}</div>
                         <div class="act_as_cell" style="width: 70px;">${_('')}</div>
                         <div class="act_as_cell amount" style="width: 100px;">${_('')}</div>
                         <div class="act_as_cell amount" style="width: 100px;">${_('')}</div>
                         <div class="act_as_cell amount" style="width: 100px;">${_('')}</div>
                         <div class="act_as_cell amount" style="width: 100px;">${_('')}</div>
                         <div class="act_as_cell amount" style="width: 115px;">${_('')}</div>
-                        <div class="act_as_cell amount" style="width: 115px;">${formatLang(init_balance)}</div>
+                        <div class="act_as_cell amount" style="width: 115px; font-size:10px; font-weight: bold;">${formatLang(init_balance)}</div>
                         
                         <%total_accumulated_balance = init_balance %>
                         
