@@ -104,11 +104,16 @@ class BCRParser( object ):
                 # _transmission_number -> FIRST REVISION
                 if (l.find('Movimiento realizado el periodo', 0, len('Movimiento realizado el periodo')) > -1):
                     line_dict['statementnr'] = self.extract_number(l)
+                    date_1 = self.extract_date_regular_expresion_line_format_2(l,0)
+                    date_2 = self.extract_date_regular_expresion_line_format_2(l,1)
+                
                 # _transmission_number -> SECOND REVISION
                 elif (l.find('MOVIMIENTO REALIZADO', 0, len('MOVIMIENTO REALIZADO')) > -1):
-                    line_dict['statementnr'] = self.extract_number(l)                          
-                                     
-                #FECHA Y HORA -> FIRST REVISION 
+                    line_dict['statementnr'] = self.extract_number(l)
+                    date_1 = self.extract_date_regular_expresion_line_format_2(l,0)
+                    date_2 = self.extract_date_regular_expresion_line_format_2(l,1)
+                       
+                #date and hour -> FIRST REVISION 
                 if (l.find('Solicitado el', 0, len('Solicitado el'))  > -1):
                     date =  hour = cad = ''
                     date = self.extract_date_regular_expresion(l)
@@ -117,7 +122,8 @@ class BCRParser( object ):
                     cad = date + ' ' + hour                
                     line_dict['transref'] = cad
                     line_dict['bookingdate'] = cad
-                #FECHA Y HORA -> SECOND REVISION 
+                
+                #date and hour -> SECOND REVISION                 
                 elif (l.find('SOLICITADO EL', 0, len('SOLICITADO EL'))  > -1):
                     date =  hour = cad = ''
                     date = self.extract_date_regular_expresion(l)
@@ -137,12 +143,13 @@ class BCRParser( object ):
                 #_closing_balance -> FIRST REVISION
                 if l.find('FINAL', 0, len('FINAL'))  > -1:
                     line_dict['endingbalance'] = self.extract_float(l)
+              
                 #_closing_balance -> SECOND REVISION    
                 elif l.find('Saldo Final', 0, len('Saldo Final'))  > -1:
                     line_dict['endingbalance'] = self.extract_float(l)
                         
             line_dict['ammount'] = float( line_dict['startingbalance'] ) + float( line_dict['endingbalance'] )
-            line_dict['id'] = line_dict['bookingdate'] + ' - ' + line_dict['account_number']
+            line_dict['id'] = date_1 + ' - ' + date_2 + ' Extracto BCR ' + line_dict['account_number']
             self.line_dict = line_dict
           
             return line_dict
@@ -319,6 +326,19 @@ class BCRParser( object ):
         result = []
         date_string = ''
         result = re.findall('([0-9]{2}-[0-9]{2}-[0-9]{2})[\s]*',date)      
+        date_str = result[pos]
+        
+        for character in date_str:
+            cad = cad + character       
+        return cad
+    
+    #with the pos parameter is said which of the two dates must be brought
+    #result brings a list of two elements, the post tells us to choose    
+    def extract_date_regular_expresion_line_format_2(self, date, pos):
+        cad = ''
+        result = []
+        date_string = ''
+        result = re.findall('([0-9]{2}-[0-9]{2}-[0-9]{4})[\s]*',date)      
         date_str = result[pos]
         
         for character in date_str:
