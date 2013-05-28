@@ -113,7 +113,7 @@ class BCRParser( object ):
                     date_1 = self.extract_date_regular_expresion_line_format_2(l,0)
                     date_2 = self.extract_date_regular_expresion_line_format_2(l,1)
                        
-                #FECHA Y HORA -> FIRST REVISION 
+                #date and hour -> FIRST REVISION 
                 if (l.find('Solicitado el', 0, len('Solicitado el'))  > -1):
                     date =  hour = cad = ''
                     date = self.extract_date_regular_expresion(l)
@@ -123,7 +123,7 @@ class BCRParser( object ):
                     line_dict['transref'] = cad
                     line_dict['bookingdate'] = cad
                 
-                #FECHA Y HORA -> SECOND REVISION                 
+                #date and hour -> SECOND REVISION                 
                 elif (l.find('SOLICITADO EL', 0, len('SOLICITADO EL'))  > -1):
                     date =  hour = cad = ''
                     date = self.extract_date_regular_expresion(l)
