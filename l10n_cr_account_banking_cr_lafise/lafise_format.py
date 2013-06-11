@@ -79,6 +79,7 @@ class statement(models.mem_bank_statement):
     
     def _account_number(self, record):
         self.local_account = record['account_number']
+        self.local_currency = record['currencycode']
 
     def _statement_number(self, record):
         self.id = record['id']

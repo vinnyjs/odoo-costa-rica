@@ -94,14 +94,23 @@ class BNCRParser( object ):
                     break       
         
         last_line_split = last_line.split(';')
-        if last_line_split[3] != '':
-            debit = float(last_line_split[3].replace(",",""))
+        
+        #For another type of format, take the character \t
+        if len(last_line_split) > 1:        
+            final_line_totals =  last_line_split        
+        else:
+            final_line_totals = last_line.split('\t')
+        
+        #######################################################
+        
+        if final_line_totals[3] != '':
+            debit = float(final_line_totals[3].replace(",",""))
         else:
             debit = 0.0
-        if last_line_split[4] != '':
-            credit = float(last_line_split[4].replace(",",""))
+        if final_line_totals[4] != '':
+            credit = float(final_line_totals[4].replace(",",""))
         else:
-            credit = 0.0
+            credit = 0.0        
         
         startingbalance = float(kwargs['ending_balance']) + debit - credit 
         line_dict['startingbalance'] =  str(startingbalance)
@@ -152,28 +161,34 @@ class BNCRParser( object ):
         sub_list = list_split [start:end] #The end line is amount totals of credit and debit
         for sub in sub_list:
             line = sub.split(';')
+            if len(line) > 1:
+                final_line = line
+            #For another type of format, take the character \t
+            else:
+                final_line = sub.split('\t')
+                
             #effective_date
-            date_str = line[1].replace("/","-")
+            date_str = final_line[1].replace("/","-")
             date= datetime.strptime(date_str, "%Y-%m-%d")               
             mapping['effective_date'] = date #fecha_contable.                        
             #execution_date
             mapping['execution_date'] = date #fecha_movimiento
                                    
             mapping['transfer_type'] = 'NTRF'
-            mapping['reference'] = line[2] #NumDocumento
-            mapping['message'] = line[2]+' '+line[5] #NumDocumento + Description         
-            mapping['name'] = line[2]+' '+line[5] #NumDocumento + Description       
-            mapping['id'] = line[2]+' '+line[5] #NumDocumento + Description     
+            mapping['reference'] = final_line[2] #NumDocumento
+            mapping['message'] = final_line[2]+' '+final_line[5] #NumDocumento + Description         
+            mapping['name'] = final_line[2]+' '+final_line[5] #NumDocumento + Description       
+            mapping['id'] = final_line[2]+' '+final_line[5] #NumDocumento + Description     
             
             #the field in position 3 is debit, the position 4 is credit
-            if line[4] != '':
-                credit = float(line[4].replace(",",""))
+            if final_line[4] != '':
+                credit = float(final_line[4].replace(",",""))
                 mapping['transferred_amount'] = credit    
                 mapping['creditmarker'] = 'C'
             
-            elif line[3] != '':
+            elif final_line[3] != '':
                 #In this case, the debit is negative.
-                debit = float(line[3].replace(",",""))
+                debit = float(final_line[3].replace(",",""))
                 mapping['transferred_amount'] =  -1 * debit
            
             lines.append(copy(mapping))
