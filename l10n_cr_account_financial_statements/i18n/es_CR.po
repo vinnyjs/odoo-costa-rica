@@ -452,3 +452,11 @@ msgstr "Año Fiscal:"
 msgid "Compare By"
 msgstr "Comparar por"
 
+
+#. module: account
+#: model:ir.ui.menu,name:account.menu_account_report_pl
+msgid "Profit And Loss"
+msgstr "Estado de Resultados"
+
+
+
