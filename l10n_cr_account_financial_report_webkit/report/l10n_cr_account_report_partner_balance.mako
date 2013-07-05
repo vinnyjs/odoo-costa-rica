@@ -124,10 +124,12 @@
                 %if currency[0] != None:
                       <div class="act_as_cell" style="width: 250px;  vertical-align: middle">${move_line.currency_id.symbol} ${formatLang(total_balance_curr)}</div>
                       <div class="act_as_cell">${_('')}</div>
+                      <div class="act_as_cell">${_('')}</div>
                       <div class="act_as_cell amount">${move_line.currency_id.symbol} ${formatLang(total_credit_curr)}</div>
                       <div class="act_as_cell amount">${move_line.currency_id.symbol} ${formatLang(total_debit_curr)}</div>
                 %else:
                       <div class="act_as_cell" style="width: 250px;  vertical-align: middle">${company.currency_id.symbol} ${formatLang(total_balance_curr)}</div>
+                      <div class="act_as_cell">${_('')}</div>
                       <div class="act_as_cell">${_('')}</div>
                       <div class="act_as_cell amount">${company.currency_id.symbol} ${formatLang(total_credit_curr)}</div>
                       <div class="act_as_cell amount">${company.currency_id.symbol} ${formatLang(total_debit_curr)}</div>
