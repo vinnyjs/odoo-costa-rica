@@ -76,7 +76,7 @@ msgid "Account"
 msgstr "Cuenta"
 
 #. module: l10n_cr_account_financial_report_webkit
-#: report:addons/l10n_cr_account_financial_report_webkit/report/l10n_cr_account_report_partner_balance.mako:55
+#: report:addons/l10n_cr_account_financial_report_webkit/report/l10n_cr_account_report_partner_balance.mako:63
 msgid "Due Date"
 msgstr "Fecha de Vencimiento"
 
@@ -167,6 +167,11 @@ msgstr "Seleccione los Planes Contables"
 #: field:conciliation.bank.webkit,filter:0
 msgid "Filter by"
 msgstr "Filtrar por"
+
+#. module: l10n_cr_account_financial_report_webkit
+#: report:addons/l10n_cr_account_financial_report_webkit/report/l10n_cr_account_report_partner_balance.mako:63
+msgid "Date maturity"
+msgstr "Fecha de Vencimiento"
 
 #. module: l10n_cr_account_financial_report_webkit
 #: report:addons/l10n_cr_account_financial_report_webkit/report/account_bank_balances.mako:60
@@ -287,6 +292,11 @@ msgstr "Mov. Manual"
 #: selection:account.balances,filter:0
 msgid "Opening Only"
 msgstr "Sólo Apertura"
+
+#. module: l10n_cr_account_financial_report_webkit
+#: report:addons/l10n_cr_account_financial_report_webkit/report/l10n_cr_account_report_partner_balance.mako:45
+msgid "RECEIVABLE"
+msgstr "POR COBRAR"
 
 #. module: l10n_cr_account_financial_report_webkit
 #: report:addons/l10n_cr_account_financial_report_webkit/report/l10n_cr_account_report_open_invoices.mako:60
@@ -549,6 +559,11 @@ msgid "This report allows you to print or generate a pdf of your account bank ba
 msgstr "Este informe le permite imprimir o generar un pdf del saldo de cuentas de banco que le permite comprobar rápidamente el balance de cada una de sus cuentas en un único informe"
 
 #. module: l10n_cr_account_financial_report_webkit
+#: report:addons/l10n_cr_account_financial_report_webkit/report/l10n_cr_account_report_partner_balance.mako:64
+msgid "Number"
+msgstr "Número"
+
+#. module: l10n_cr_account_financial_report_webkit
 #: view:account.balances:0
 msgid "Accounts Filters"
 msgstr "Filtros de Cuentas"
@@ -560,6 +575,11 @@ msgstr "Filtros de Cuentas"
 #: report:addons/l10n_cr_account_financial_report_webkit/report/l10n_cr_account_report_partners_ledger.mako:32
 msgid "Dates Filter"
 msgstr "Filtro por Fechas"
+
+#. module: l10n_cr_account_financial_report_webkit
+#: report:addons/l10n_cr_account_financial_report_webkit/report/l10n_cr_account_report_partner_balance.mako:43
+msgid "PAYABLE"
+msgstr "POR PAGAR"
 
 #. module: l10n_cr_account_financial_report_webkit
 #: selection:account.balances,filter:0
@@ -654,8 +674,8 @@ msgid "Conciliation Bank Report"
 msgstr "Reporte de Conciliación de Bancos"
 
 #. module: l10n_cr_account_financial_report_webkit
-#: report:addons/l10n_cr_account_financial_report_webkit/report/l10n_cr_account_report_partner_balance.mako:149
-msgid "Nota: "
+#: report:addons/l10n_cr_account_financial_report_webkit/report/l10n_cr_account_report_partner_balance.mako:169
+msgid "Note: "
 msgstr "Nota: "
 
 #. module: l10n_cr_account_financial_report_webkit

@@ -41,13 +41,13 @@ class l10n_cr_partner_balance(report_sxw.rml_parse):
         })
     
 
-    def get_partners_by_curr(self, cr, uid, partner):
+    def get_partners_by_curr(self, cr, uid, partner, account_type):
         currency_names_list = []
         partners_curr_list = []
         partners_by_curr = []
 
         obj_move = self.pool.get('account.move.line')
-        obj_search = obj_move.search(cr, uid, [('partner_id','=',partner.id),'&',('reconcile_id','=',False),'|',('account_id.type','=','payable'),('account_id.type','=','receivable')])
+        obj_search = obj_move.search(cr, uid, [('partner_id','=',partner.id),('reconcile_id','=',False),('account_id.type','=', account_type)])
         move_lines = obj_move.browse(cr, uid, obj_search)
 
         for move_line in move_lines:
