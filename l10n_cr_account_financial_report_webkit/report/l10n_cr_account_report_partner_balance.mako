@@ -46,8 +46,8 @@
             %endif
             %for currency in part_by_curr:
                 <%
-                total_credit_curr = 0.0
                 total_debit_curr = 0.0
+                total_credit_curr = 0.0
                 total_balance_curr = 0.0
                 balance_curr = 0.0
                 %>
@@ -63,8 +63,8 @@
                    <div class="act_as_cell">${_('Date maturity')}</div>
                    <div class="act_as_cell">${_('Number')}</div>
                    <div class="act_as_cell" style="width: 250px;  vertical-align: middle">${_('Detail')}</div>
-                   <div class="act_as_cell amount">${_('Debit')}</div>
                    <div class="act_as_cell amount">${_('Credit')}</div>
+                   <div class="act_as_cell amount">${_('Debit')}</div>
               </div>
                 </div>
               
@@ -81,27 +81,27 @@
                                       <div class="act_as_cell" style="width: 250px;  vertical-align: middle">${move_line.name or '-'}</div>
                   %if currency[0] != None:
                       %if move_line.amount_currency > 0: 
-                                ## Receivable
+                                ## Receivables
                                 <div class="act_as_cell amount">${formatLang(move_line.amount_currency) or '0'}</div>
                                 ## Payments
                                 <div class="act_as_cell amount">${'0.00'}</div>
-                                <%total_credit_curr += move_line.amount_currency%>
+                                <%total_debit_curr += move_line.amount_currency%>
                       %else:
-                                ## Receivable
+                                ## Receivables
                                 <div class="act_as_cell amount">${'0.00'}</div>
                                 ## Payments
                                 <div class="act_as_cell amount">${formatLang(move_line.amount_currency*-1) or '0'}</div>
-                                <%total_debit_curr += move_line.amount_currency*-1%>
+                                <%total_credit_curr += move_line.amount_currency*-1%>
                       %endif
                   %else:
-                      ## Pagos
-                      <div class="act_as_cell amount">${formatLang(move_line.credit) or '0'}</div>
-                      ## Cobros
+                      ## Payments
                       <div class="act_as_cell amount">${formatLang(move_line.debit) or '0'}</div>
+                      ## Receivables
+                      <div class="act_as_cell amount">${formatLang(move_line.credit) or '0'}</div>
                       <%
                      ## Totales por Moneda
-                     total_credit_curr += move_line.credit
-                     total_debit_curr += move_line.debit 
+                     total_debit_curr += move_line.debit
+                     total_credit_curr += move_line.credit 
                       %>
                   %endif
                            </div>
@@ -109,7 +109,7 @@
            </div>
            <%
                 ## Totales
-                total_balance_curr = total_credit_curr - total_debit_curr
+                total_balance_curr = total_debit_curr - total_credit_curr
                 if currency[0] != None:
                       balance_curr = currency_convert(cr, uid, move_line.currency_id.id, company.currency_id.id, total_balance_curr)
                 else:
@@ -125,14 +125,14 @@
                       <div class="act_as_cell" style="width: 250px;  vertical-align: middle">${move_line.currency_id.symbol} ${formatLang(total_balance_curr)}</div>
                       <div class="act_as_cell">${_('')}</div>
                       <div class="act_as_cell">${_('')}</div>
-                      <div class="act_as_cell amount">${move_line.currency_id.symbol} ${formatLang(total_credit_curr)}</div>
                       <div class="act_as_cell amount">${move_line.currency_id.symbol} ${formatLang(total_debit_curr)}</div>
+                      <div class="act_as_cell amount">${move_line.currency_id.symbol} ${formatLang(total_credit_curr)}</div>
                 %else:
                       <div class="act_as_cell" style="width: 250px;  vertical-align: middle">${company.currency_id.symbol} ${formatLang(total_balance_curr)}</div>
                       <div class="act_as_cell">${_('')}</div>
                       <div class="act_as_cell">${_('')}</div>
-                      <div class="act_as_cell amount">${company.currency_id.symbol} ${formatLang(total_credit_curr)}</div>
                       <div class="act_as_cell amount">${company.currency_id.symbol} ${formatLang(total_debit_curr)}</div>
+                      <div class="act_as_cell amount">${company.currency_id.symbol} ${formatLang(total_credit_curr)}</div>
                 %endif
                 
            </div>
