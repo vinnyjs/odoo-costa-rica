@@ -21,16 +21,21 @@
 ##############################################################################
 
 from osv import osv
-
+import time
 
 class PayrollReportForMonthWizard(osv.osv_memory):
     
     _inherit = "trial.balance.webkit"
     _name = "payroll.report.for.month"
     _description = "Payroll Report for Month"
-
+    
+    def _get_fiscalyear(self, cr, uid, context=None):
+        now = time.strftime('%Y-%m-%d')
+        fiscalyears = self.pool.get('account.fiscalyear').search(cr, uid, [('date_start', '<', now), ('date_stop', '>', now)], limit=1 )
+        return fiscalyears and fiscalyears[0] or False
+        
     _defaults = {
-            'fiscalyear_id': '',
+            'fiscalyear_id': _get_fiscalyear,
             'filter': 'filter_period',
     }
 
