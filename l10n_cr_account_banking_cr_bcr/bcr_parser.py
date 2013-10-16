@@ -231,6 +231,10 @@ class BCRParser( object ):
             mapping['id'] = sub[27:80]
             
             #First version of file: Amounts are in center
+            amount = ''
+            credit = ''
+            debit = ''
+                        
             amount = sub[120:]            
             if amount != '':
                 amount.replace('\t',' ')
