@@ -230,11 +230,20 @@ class BCRParser( object ):
             mapping['name'] = sub[27:80]
             mapping['id'] = sub[27:80]
             
-            amount = sub[120:]
-            amount.replace('\t',' ')
-            debit = amount[0:40]
-            credit = amount[40:]
+            #First version of file: Amounts are in center
+            amount = sub[120:]            
+            if amount != '':
+                amount.replace('\t',' ')
+                debit = amount[0:40]
+                credit = amount[40:]
             
+            #Second version of file: Amounts are in left
+            else:
+                amount = sub[106:]
+                amount.replace('\t',' ')
+                debit = amount[0:16]
+                credit = amount[16:]
+                
             if (parser.extract_float(debit) is not ''): #debit
                 cad = parser.extract_float(debit)
                 mapping['transferred_amount'] = -float(cad)      
