@@ -230,13 +230,14 @@ class BCRParser( object ):
             mapping['name'] = sub[27:80]
             mapping['id'] = sub[27:80]
             
+            ############### AMOUNTS 
+          
+            #substring amount MUST HAVE AT LEAST one character diferent to whitespace and amount must have one character
+                      
             #First version of file: Amounts are in center
-            amount = ''
-            credit = ''
-            debit = ''
-                        
-            amount = sub[120:]            
-            if amount != '':
+            amount = sub[120:]  
+
+            if not amount.isspace() and len(amount) > 0: #"Return true if there are only whitespace characters in the string and there is at least one character, false otherwise."
                 amount.replace('\t',' ')
                 debit = amount[0:40]
                 credit = amount[40:]
