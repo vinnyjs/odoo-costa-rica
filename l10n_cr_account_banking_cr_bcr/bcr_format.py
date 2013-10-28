@@ -100,10 +100,7 @@ class statement(models.mem_bank_statement):
         sub_record = parser.statement_lines(record) #dictionary
         for sub in sub_record:
             self.transactions.append(transaction(sub))
-    
-    #def _transaction_info():
-        #self.transaction_info(record)
-    
+
     def _not_used():
         logger.info("Didn't use record: %s", record)
         
