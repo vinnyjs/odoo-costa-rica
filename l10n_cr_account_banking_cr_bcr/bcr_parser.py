@@ -75,11 +75,11 @@ class BCRParser( object ):
         cad = ''
         list_split = rec.split('\r\n')
         account_number_wizard = kwargs['account_number']
-        
+
         #If return True, the account are the same.
         if self.match_account(list_split, account_number_wizard):        
-            for l in list_split:            
-                 #_account_number -> FIRST REVISION
+            for l in list_split:                
+                #_account_number -> FIRST REVISION
                 if l.find('Movimiento de Cuenta Corriente', 0, len('Movimiento de Cuenta Corriente')) > -1:
                     line_dict['account_number'] = self.extract_number(l)                
                     
@@ -158,7 +158,7 @@ class BCRParser( object ):
             raise osv.except_osv(_('Error'),
                         _('Error en la importación! La cuenta especificada en el archivo no coincide con la seleccionada en el asistente de importacion'))
         
-    def statement_lines ( self, rec ):
+    def statement_lines ( self, rec):
         parser = BCRParser()
         mapping = {
             'execution_date' : '',
@@ -171,8 +171,6 @@ class BCRParser( object ):
             'transferred_amount': '',
             'creditmarker': '',
         }
-        
-        lines = []
         line_dict = {}
         currencycode = ''
         
@@ -180,7 +178,9 @@ class BCRParser( object ):
         entrada = False
         start = 0
         end = 0
+        version = 'none'
         
+        #========= Start and end of lines ======#
         for l in list_split: 
             if l.find('TOTALES DEL MOVIMIENTO CONTABILIZADO', 0, len('TOTALES DEL MOVIMIENTO CONTABILIZADO')) <= -1:
                 end += 1
@@ -208,59 +208,61 @@ class BCRParser( object ):
                     currencycode = 'USD'
                 else:
                     currencycode = 'CRC'
-                break
-            
+                break            
+        
+        #========= VERSION OF THREE COLUMNS FOR DEBIT AND CREDIT =============# 
         sub_list = list_split [start:end]
-        for sub in sub_list:
-            #effective_date
-            date_str = ''
-            date_str = self.extract_date_regular_expresion_line(sub,0)
-            date= datetime.strptime(date_str, "%d-%m-%y")               
-            mapping['effective_date'] = date #fecha_contable.
+        
+        if len(sub_list) > 0:
+            sub_first = sub_list[0] #Based in first line, decide which version it is
             
-            #execution_date
-            date_str = self.extract_date_regular_expresion_line(sub,1)
-            date = datetime.strptime(date_str, "%d-%m-%y")
-            mapping['execution_date'] = date #fecha_movimiento                       
-           
-            mapping['local_currency'] = currencycode
-            mapping['transfer_type'] = 'NTRF'
-            mapping['reference'] = parser.extract_number(sub[18:26])
-            mapping['message'] = sub[27:80]                
-            mapping['name'] = sub[27:80]
-            mapping['id'] = sub[27:80]
+            #1. Try separate by tab ('\t') (last version) (fields must have, at least, more than 1 of length)
+            fields = sub_first.split('\t')
             
-            ############### AMOUNTS 
-          
-            #substring amount MUST HAVE AT LEAST one character diferent to whitespace and amount must have one character
-                      
-            #First version of file: Amounts are in center
-            amount = sub[120:]  
-
-            if not amount.isspace() and len(amount) > 0: #"Return true if there are only whitespace characters in the string and there is at least one character, false otherwise."
-                amount.replace('\t',' ')
-                debit = amount[0:40]
-                credit = amount[40:]
+            if len(fields) > 1:
+                version = 'third_version'
             
-            #Second version of file: Amounts are in left
+            #2. Find where start debit and credit columns
             else:
-                amount = sub[106:]
-                amount.replace('\t',' ')
+                amount = sub_first[106:]
                 debit = amount[0:16]
-                credit = amount[16:]
                 
-            if (parser.extract_float(debit) is not ''): #debit
-                cad = parser.extract_float(debit)
-                mapping['transferred_amount'] = -float(cad)      
-                mapping['creditmarker'] = 'C'
-                                      
-            else: #credit
-                cad = parser.extract_float (credit)
-                mapping['transferred_amount'] =  float(cad)
+                debit = debit.replace(',','')
+                debit = debit.replace('.','')
+                debit = re.sub(r'\s', '', debit)
+                
+                if re.match('^[0-9,.]*$', debit):
+                    version = 'first_version'
+                
+                else:
+                    amount = sub_first[120:]            
+                    debit = amount[0:40]
+                    
+                    debit = debit.replace(',','')
+                    debit = debit.replace('.','')
+                    debit = re.sub(r'\s', '', debit)
+                    
+                    if re.match('^[0-9,.]*$', debit):
+                        version = 'second_version'
+                        
+            #=====================================================================#
             
-            lines.append(copy(mapping))
-                            
-        return lines    
+            if version != 'none':
+                if version =='first_version':
+                    return self.first_version_file(sub_list,mapping,currencycode,parser)
+                
+                elif version == 'second_version':
+                    return self.second_version(sub_list,mapping,currencycode,parser)
+                
+                elif version == 'third_version':
+                    return self.third_version(sub_list,mapping,currencycode,parser)
+                        
+            else:
+                raise osv.except_osv(_('Error'),
+                                     _('There is not format implementend for this file.'))
+            
+        else:
+            return []    
     
     def parse_stamenent_record( self, rec, **kwargs):
 
@@ -300,7 +302,128 @@ class BCRParser( object ):
             matchdict[field] = date_obj
         
         return matchdict
-                    
+    
+    #=============================Auxiliary methods =============================#
+    
+    #=====================Versions of file
+    
+    def first_version_file(self, sub_list,mapping,currencycode,parser):
+        lines = []
+        for sub in sub_list:
+            #effective_date
+            date_str = ''
+            date_str = self.extract_date_regular_expresion_line(sub,0)
+            date= datetime.strptime(date_str, "%d-%m-%y")               
+            mapping['effective_date'] = date #fecha_contable.
+            
+            #execution_date
+            date_str = self.extract_date_regular_expresion_line(sub,1)
+            date = datetime.strptime(date_str, "%d-%m-%y")
+            mapping['execution_date'] = date #fecha_movimiento                       
+           
+            mapping['local_currency'] = currencycode
+            mapping['transfer_type'] = 'NTRF'
+            mapping['reference'] = parser.extract_number(sub[18:26])
+            mapping['message'] = sub[27:80]                
+            mapping['name'] = sub[27:80]
+            mapping['id'] = sub[27:80]
+            
+            amount = sub[106:]
+            amount.replace('\t',' ')
+            debit = amount[0:16]
+            credit = amount[16:]
+            
+            if (parser.extract_float(debit) is not ''): #debit
+                cad = parser.extract_float(debit)
+                mapping['transferred_amount'] = -float(cad)      
+                mapping['creditmarker'] = 'C'
+                                      
+            else: #credit
+                cad = parser.extract_float (credit)
+                mapping['transferred_amount'] =  float(cad)
+            
+            lines.append(copy(mapping))
+                            
+        return lines
+    
+    def second_version (self, sub_list,mapping,currencycode,parser):
+        lines = []
+        for sub in sub_list:
+            #effective_date
+            date_str = ''
+            date_str = self.extract_date_regular_expresion_line(sub,0)
+            date= datetime.strptime(date_str, "%d-%m-%y")               
+            mapping['effective_date'] = date #fecha_contable.
+            
+            #execution_date
+            date_str = self.extract_date_regular_expresion_line(sub,1)
+            date = datetime.strptime(date_str, "%d-%m-%y")
+            mapping['execution_date'] = date #fecha_movimiento                       
+           
+            mapping['local_currency'] = currencycode
+            mapping['transfer_type'] = 'NTRF'
+            mapping['reference'] = parser.extract_number(sub[18:26])
+            mapping['message'] = sub[27:80]                
+            mapping['name'] = sub[27:80]
+            mapping['id'] = sub[27:80]
+            
+            amount = sub[120:]
+            amount.replace('\t',' ')
+            debit = amount[0:40]
+            credit = amount[40:]
+            
+            if (parser.extract_float(debit) is not ''): #debit
+                cad = parser.extract_float(debit)
+                mapping['transferred_amount'] = -float(cad)      
+                mapping['creditmarker'] = 'C'
+                                      
+            else: #credit
+                cad = parser.extract_float (credit)
+                mapping['transferred_amount'] =  float(cad)
+            
+            lines.append(copy(mapping))
+                            
+        return lines    
+    
+    def third_version(self, sub_list,mapping,currencycode,parser):
+        lines = []
+        for l in sub_list:
+            fields = l.split('\t')
+            
+            #effective_date
+            date_str = fields[0]
+            date= datetime.strptime(date_str, "%d-%m-%y")               
+            mapping['effective_date'] = date #fecha_contable.
+            
+            #execution_date
+            date_str = fields[1]
+            date = datetime.strptime(date_str, "%d-%m-%y")
+            mapping['execution_date'] = date #fecha_movimiento                       
+           
+            mapping['local_currency'] = currencycode
+            mapping['transfer_type'] = 'NTRF'
+            mapping['reference'] = parser.extract_number(fields[2])
+            mapping['message'] = fields[3]                
+            mapping['name'] = fields[3]
+            mapping['id'] = fields[3]
+            
+            #Extract debit and credit
+            debit = fields[5]
+            if (parser.extract_float(debit) is not ''): #debit
+                cad = parser.extract_float(debit)
+                mapping['transferred_amount'] = -float(cad)      
+                mapping['creditmarker'] = 'C'
+                                      
+            else: #credit
+                credit = fields[6]
+                cad = parser.extract_float(credit)
+                mapping['transferred_amount'] =  float(cad)
+            
+            lines.append(copy(mapping))
+        
+        return lines
+        
+    #===============================================================                
     def extract_number( self, account_number ):
         cad = ''
         result = re.findall(r'[0-9]+', account_number)
@@ -309,9 +432,9 @@ class BCRParser( object ):
             cad = cad + character
         return cad
 
-    def extract_float ( self, ammount ):
+    def extract_float ( self, amount ):
         cad = ''
-        result = re.findall(r"[-+]?\d*\.\d+|\d+",ammount)
+        result = re.findall(r"[-+]?\d*\.\d+|\d+",amount)
         
         for character in result:
             cad = cad + character       
