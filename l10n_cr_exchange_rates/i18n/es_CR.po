@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 6.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-25 21:36+0000\n"
-"PO-Revision-Date: 2013-07-25 21:36+0000\n"
+"POT-Creation-Date: 2013-12-09 17:58+0000\n"
+"PO-Revision-Date: 2013-12-09 17:58+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -83,6 +83,12 @@ msgid "Account"
 msgstr "Cuenta"
 
 #. module: l10n_cr_exchange_rates
+#: code:addons/l10n_cr_exchange_rates/l10n_cr_exchange_rates.py:182
+#, python-format
+msgid "Unreconcile lines adjustment"
+msgstr "Ajuste de líneas no conciliables"
+
+#. module: l10n_cr_exchange_rates
 #: view:generate.exchange.rates.wizard:0
 msgid "Compute"
 msgstr "Crear"
@@ -102,6 +108,11 @@ msgstr "Monto base del tipo de cambio"
 #: view:generate.exchange.rates.wizard:0
 msgid "Select the options do you need"
 msgstr "Seleccione las opciones que necesita"
+
+#. module: l10n_cr_exchange_rates
+#: field:generate.exchange.rates.wizard,exchange_rate_date:0
+msgid "Exchange rate date"
+msgstr "Fecha del tipo de cambio"
 
 #. module: l10n_cr_exchange_rates
 #: sql_constraint:account.move.line:0
@@ -136,6 +147,11 @@ msgstr "¡Error de configuración! \n"
 "¡No se puede seleccionar un tipo de cuenta con un método diferente de aplazamiento \"no reconciliadas\" para las cuentas con el tipo interno \"por pagar / por cobrar\"! "
 
 #. module: l10n_cr_exchange_rates
+#: help:generate.exchange.rates.wizard,exchange_rate_date:0
+msgid "If not set, use the end of the period"
+msgstr "Si no se establece, utiliza la fecha final del período"
+
+#. module: l10n_cr_exchange_rates
 #: field:account.move.line,amount_exchange_rate:0
 msgid "Amount of exchange rate"
 msgstr "Importe de tipo de cambio"
@@ -164,7 +180,8 @@ msgstr "Elija si la cuenta requiere ajuste de tipo de cambio"
 #: constraint:account.account:0
 msgid "Configuration Error! \n"
 "You can not define children to an account with internal type different of \"View\"! "
-msgstr "¡Error de configuración! "
+msgstr "¡Error de configuración! \n"
+"¡No se pueden definir los hijos de una cuenta con tipo interno diferente de \" vista \ "!"
 
 #. module: l10n_cr_exchange_rates
 #: view:generate.exchange.rates.wizard:0
@@ -172,7 +189,7 @@ msgid "Cancel"
 msgstr "Cancelar"
 
 #. module: l10n_cr_exchange_rates
-#: code:addons/l10n_cr_exchange_rates/wizard/l10n_cr_exchange_rates_wizard.py:51
+#: code:addons/l10n_cr_exchange_rates/wizard/l10n_cr_exchange_rates_wizard.py:55
 #, python-format
 msgid "Created Account Moves"
 msgstr "Asientos contables creados"
@@ -181,3 +198,4 @@ msgstr "Asientos contables creados"
 #: field:account.move.line,adjustment:0
 msgid "Adjustment"
 msgstr "Ajuste"
+
