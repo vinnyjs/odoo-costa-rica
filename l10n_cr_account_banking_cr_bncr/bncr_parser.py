@@ -129,6 +129,7 @@ class BNCRParser( object ):
     '''     
     def statement_lines ( self, rec ):
         parser = BNCRParser()
+        line_id = 1 #To distinct the lines, in the case of someone are repeat.
         mapping = {
             'execution_date' : '',
             'effective_date' : '',
@@ -176,9 +177,9 @@ class BNCRParser( object ):
                                    
             mapping['transfer_type'] = 'NTRF'
             mapping['reference'] = final_line[2] #NumDocumento
-            mapping['message'] = final_line[2]+' '+final_line[5] #NumDocumento + Description         
-            mapping['name'] = final_line[2]+' '+final_line[5] #NumDocumento + Description       
-            mapping['id'] = final_line[2]+' '+final_line[5] #NumDocumento + Description     
+            mapping['message'] = final_line[2]+' '+final_line[5]+' ID line: ' + str(line_id) #NumDocumento + Description + Line ID          
+            mapping['name'] = final_line[2]+' '+final_line[5]+' ID line: ' + str(line_id) #NumDocumento + Description + Line ID  
+            mapping['id'] = final_line[2]+' '+final_line[5]+' ID line: ' + str(line_id) #NumDocumento + Description + Line ID  
             
             #the field in position 3 is debit, the position 4 is credit
             if final_line[4] != '':
@@ -192,6 +193,7 @@ class BNCRParser( object ):
                 mapping['transferred_amount'] =  -1 * debit
            
             lines.append(copy(mapping))
+            line_id += 1
                             
         return lines    
      
