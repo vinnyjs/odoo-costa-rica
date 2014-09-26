@@ -91,7 +91,7 @@ class hr_employee(osv.osv):
         (_check_report_number_child, 'Error! The number of child to report must be greater or equal to zero.', ['report_number_child'])
     ]
 
-class hrPayslipinherit(osv.osv_memory):
+class hrPayslipinherit(osv.osv):
     
     _inherit = 'hr.payslip'
     
