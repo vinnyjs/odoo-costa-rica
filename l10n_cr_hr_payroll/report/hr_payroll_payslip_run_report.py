@@ -205,13 +205,12 @@ class hrPaysliprunReport(report_sxw.rml_parse):
             for payslip in run.slip_ids:
                 if payslip.employee_id.department_id.name == dep:
                     dep_emp.append(payslip)
-                obj_by_dep.append(dep_emp)
+            obj_by_dep.append(dep_emp)
         i = 0
         for dep in dep_list:
             tup_temp = (dep, obj_by_dep[i])
             emp_by_dep.append(tup_temp)
             i += 1
-
         return emp_by_dep
     
         
