@@ -23,6 +23,7 @@
          </style>
     </head>
 <body class = "data">
+    <% conversion_rate = 0.0 %>
     %for partner in objects :
         <%
             account_types = ['payable','receivable']
@@ -152,7 +153,6 @@
             </div>
             <div>
                   <%
-                      today = get_time_today()
                       if currency[0] != None:
                            conversion_rate = get_conversion_rate(cr, uid, move_line.currency_id, company.currency_id)
                       else:
@@ -169,7 +169,7 @@
 
     </br></br>
     <div style="font-family: Helvetica, Arial; font-size: 13px; font-weight: bold; margin-top: 20px;"> ${_('Note: ')} </div>
-    <div style="font-family: Helvetica, Arial; font-size: 12px;"> ${_('In the event of any foreign currencies the Total Balance was calculated according to the exchange rate of the day ')} ${formatLang( today, date=True)} (${company.currency_id.symbol} ${conversion_rate})</div>
+    <div style="font-family: Helvetica, Arial; font-size: 12px;"> ${_('In the event of any foreign currencies the Total Balance was calculated according to the exchange rate of the day ')} ${formatLang( get_time_today(), date=True)} (${company.currency_id.symbol} ${conversion_rate})</div>
     <p style="page-break-after:always"></p>
     
     %endfor    
