@@ -22,7 +22,7 @@
 {
     'name': 'l10n_cr_base',
     'description': """ 
-Product Category Code
+l10n_cr_base
 =======================
 This module add a constraint for name and reference of partner.
     """,
