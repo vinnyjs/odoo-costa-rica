@@ -35,7 +35,7 @@ class ResPartner(osv.Model):
         return super(ResPartner, self).copy_data(cr, uid, id, default=default, context=context)
     
     _columns = {
-        'ref': fields.char(required=True)
+        'ref': fields.char(string="Reference", required=True)
     }
     _sql_constraints = [
         ('name_reference_unique',
