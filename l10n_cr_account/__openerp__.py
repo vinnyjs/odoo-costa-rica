@@ -24,7 +24,7 @@
     'description': """ 
 l10n_cr_account
 =======================
-This module add a constraint for supplier_invoice_number and partner_id of account.invoice.
+This module add a constraint for fields supplier invoice number and supplier in account invoices
     """,
     'version': '1.0',
     'author': 'ClearCorp',
