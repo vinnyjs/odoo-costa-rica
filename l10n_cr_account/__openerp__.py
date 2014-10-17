@@ -24,7 +24,7 @@
     'description': """ 
 l10n_cr_account
 =======================
-This module add a constraint for name and reference of partner.
+This module add a constraint for supplier_invoice_number and partner_id of account.invoice.
     """,
     'version': '1.0',
     'author': 'ClearCorp',
