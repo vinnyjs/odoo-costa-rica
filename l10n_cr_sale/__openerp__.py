@@ -24,7 +24,7 @@
     'description': """ 
 l10n_cr_sale
 =======================
-This module add a constraint for client_order_ref and partner_id of sale order.
+This module add a constraint for custumer reference and custumer in sale order
     """,
     'version': '1.0',
     'author': 'ClearCorp',
