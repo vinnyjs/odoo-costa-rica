@@ -21,19 +21,14 @@
 ##############################################################################
 {
     'name': 'l10n_cr_base',
-    'description': """ 
-l10n_cr_base
-=======================
-This module add a constraint for name and reference of partner.
-    """,
-    'version': '1.0',
-    'author': 'ClearCorp',
+    'summary': 'This module add a constraint for name and reference'
+    ' of partner.',
+    'version': '9.0.1.0',
     'category': 'Base',
-    'website': "http://clearcorp.co.cr",
-    'depends': ['base'
-                ],
-    'data': ['res_partner.xml'
-             ],
+    'website': "http://clearcorp.cr",
+    'author': 'ClearCorp',
+    'depends': ['base'],
+    'data': ['views/res_partner.xml'],
     'active': False,
     'installable': True,
     'license': 'AGPL-3',
