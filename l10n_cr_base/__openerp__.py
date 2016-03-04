@@ -21,7 +21,7 @@
 ##############################################################################
 {
     'name': 'l10n_cr_base',
-    'summary': 'This module add a constraint for name and reference'
+    'summary': 'This module add a constraint for name and internal reference'
     ' of partner.',
     'version': '9.0.1.0',
     'category': 'Base',
