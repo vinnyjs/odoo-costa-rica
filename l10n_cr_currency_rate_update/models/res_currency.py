@@ -23,7 +23,7 @@ class ResCurrency(models.Model):
     @api.model
     @api.returns('self', lambda value: value.id)
     def create(self, vals):
-        if 'base' in vals.keys() and vals['base'] == True:
+        if 'base' in vals.keys() and vals['base']:
             if self.search_count([('base', '=', True)]) >= 1:
                 raise ValidationError(
                     _('More than one currency set as base.'))
@@ -31,7 +31,7 @@ class ResCurrency(models.Model):
 
     @api.multi
     def write(self, vals):
-        if 'base' in vals.keys() and vals['base'] == True:
+        if 'base' in vals.keys() and vals['base']:
             if self.search_count([('base', '=', True)]) >= 1:
                 raise ValidationError(
                     _('More than one currency set as base.'))
