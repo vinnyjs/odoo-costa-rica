@@ -28,12 +28,10 @@ class BccrGetter(CurrencyGetterInterface):
             return rawfile
         except ImportError:
             raise except_orm(
-                'Error !',
-                self.MOD_NAME + 'Unable to import urllib !')
+                'Error ! Unable to import urllib !')
         except IOError:
             raise except_orm(
-                'Error !',
-                self.MOD_NAME + 'Web Service does not exist !')
+                'Error ! Web Service does not exist !')
 
     def get_updated_currency(
             self, currency_array, main_currency, max_delta_days, code_rate=''):
