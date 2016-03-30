@@ -6,6 +6,7 @@ import logging
 from xml.dom.minidom import parseString
 from openerp.addons.currency_rate_update import CurrencyGetterInterface
 from datetime import datetime
+import time
 from openerp.exceptions import except_orm
 
 
@@ -20,18 +21,20 @@ class BccrGetter(CurrencyGetterInterface):
 
     def get_url(self, url):
         """Return a string of a get url query"""
-        try:
-            import urllib
-            objfile = urllib.urlopen(url)
-            rawfile = objfile.read()
-            objfile.close()
-            return rawfile
-        except ImportError:
-            raise except_orm(
-                'Error ! Unable to import urllib !')
-        except IOError:
-            raise except_orm(
-                'Error ! Web Service does not exist !')
+        flag = 0
+        while(flag < 3):
+            try:
+                import urllib
+                objfile = urllib.urlopen(url)
+                rawfile = objfile.read()
+                objfile.close()
+                return rawfile
+            except ImportError:
+                time.sleep(5)
+                flag += 1
+            except IOError:
+                time.sleep(5)
+                flag += 1
 
     def get_updated_currency(
             self, currency_array, main_currency, max_delta_days, code_rate=''):
