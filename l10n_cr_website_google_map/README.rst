@@ -15,6 +15,7 @@ Contributors
 ------------
 
 * Fabio Vílchez <fabio.vilchez@clearcor.co.cr>
+* Rodney Vargas <rodney.vargas@clearcor.co.cr>
 
 
 Maintainer
