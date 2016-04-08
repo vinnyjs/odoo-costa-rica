@@ -10,14 +10,13 @@ class HREmployee(models.Model):
     _inherit = 'hr.employee'
 
     @api.one
-    def copy_data(self, default=None):
+    def copy(self, default=None):
         if default is None:
             default = {}
-        name = self.read(['name'])['name']
         default = default.copy()
-        default.update({'name': name + _(' (Copy)')})
-        default.update({'identification_id': False})
-        return super(HREmployee, self).copy_data(default=default)
+        default.update({'name': self.name + _(' (Copy)'),
+                        'identification_id': False})
+        return super(HREmployee, self).copy(default=default)
 
     _sql_constraints = [
         ('identification_unique',
