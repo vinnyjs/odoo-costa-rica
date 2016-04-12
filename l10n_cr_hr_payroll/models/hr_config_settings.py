@@ -8,7 +8,7 @@ import openerp.addons.decimal_precision as dp
 
 class HRSettingsConf(models.TransientModel):
 
-    _inherit = 'hr.config.settings'
+    _inherit = 'hr.payroll.config.settings'
 
     rent_company_id = fields.Many2one('res.company', string='Company',
                                       required=True)
