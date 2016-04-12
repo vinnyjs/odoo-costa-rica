@@ -13,7 +13,7 @@
                         <div>
                             <div name="company">
                                 <label for="rent_company_id"/>
-                                <field name="rent_company_id" on_change="onchange_rent_company_id(rent_company_id)" class="oe_inline"/>
+                                <field name="rent_company_id"  class="oe_inline"/>
                             </div>
                             <div name="first_limit">
                                 <label for="first_limit"/>
