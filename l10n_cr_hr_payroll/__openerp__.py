@@ -9,6 +9,9 @@
     'sequence': 38,
     'author': 'ClearCorp',
     'website': 'http://www.clearcorp.cr',
+    'installable': True,
+    'auto_install': False,
+    'application': True,
     'depends': [
         'hr_payroll_extended',
         'report_xls_template',
@@ -19,8 +22,6 @@
         'data/l10n_cr_hr_payroll_salary_rule.xml',
         'data/report_paperformat.xml',
         'data/l10n_cr_hr_payroll_inputs.xml',
-        'hr_config_settings.xml',
-        'l10n_cr_hr_payroll_view.xml',
         'security/l10n_cr_hr_payroll_security.xml',
         'security/ir.model.access.csv',
         'views/report_payroll_periods.xml',
@@ -30,14 +31,11 @@
         'views/report_payslip_run.xml',
         'views/report_payslip_run_xls.xml',
         'views/report_payslip.xml',
+        'views/l10n_cr_hr_payroll_report.xml',
+        'views/l10n_cr_hr_payroll_menu.xml',
+        'views/hr_config_settings.xml',
+        'views/l10n_cr_hr_payroll_view.xml',
         'wizard/payroll_by_periods.xml',
         'wizard/payroll_by_periods_employee.xml',
-        'l10n_cr_hr_payroll_report.xml',
-        'l10n_cr_hr_payroll_menu.xml',
-    ],
-    'installable': True,
-    'auto_install': False,
-    'application': True,
+    ]
 }
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

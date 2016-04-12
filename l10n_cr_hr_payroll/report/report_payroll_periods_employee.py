@@ -126,5 +126,3 @@ class report_payroll_periods_employee(models.AbstractModel):
     _inherit = 'report.abstract_report'
     _template = 'l10n_cr_hr_payroll.report_payroll_periods_employee'
     _wrapped_report_class = PayrollReportByPeriodsEmployee
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

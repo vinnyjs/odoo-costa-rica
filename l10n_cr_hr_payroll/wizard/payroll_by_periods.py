@@ -55,5 +55,3 @@ class PayrollReport(models.TransientModel):
                 'l10n_cr_hr_payroll.report_payroll_xls',
                 data=data)
         return res
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

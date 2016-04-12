@@ -10,7 +10,7 @@ class ReportPayrollXLS(report_sxw.rml_parse):
 
     def __init__(self, cr, uid, name, context):
         super(ReportPayrollXLS, self).__init__(
-                cr, uid, name, context=context)
+            cr, uid, name, context=context)
         self.localcontext.update({
             'get_payslips_by_struct': self._get_payslips_by_struct,
             'get_payslips_by_employee': self._get_payslips_by_employee,
@@ -129,5 +129,3 @@ class report_payroll_periods(models.AbstractModel):
     _inherit = 'report.abstract_report'
     _template = 'l10n_cr_hr_payroll.report_payroll_xls'
     _wrapped_report_class = ReportPayrollXLS
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
