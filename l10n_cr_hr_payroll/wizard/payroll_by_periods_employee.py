@@ -55,4 +55,3 @@ class PayrollReportEmployee(models.TransientModel):
                 'l10n_cr_hr_payroll.report_payroll_xls_employee',
                 data=data)
         return res
-    
