@@ -27,13 +27,12 @@ class HRSettingsConf(models.TransientModel):
 
     """Override onchange_company_id to update rent limits """
     @api.onchange('rent_company_id')
-    def onchange_rent_company_id(self, rent_company_id):
-        if rent_company_id:
-            company = self.env['res.company'].browse(rent_company_id)
-            self.first_limit = company.first_limit
-            self.second_limit = company.second_limit,
-            self.amount_per_child = company.amount_per_child,
-            self.amount_per_spouse = company.amount_per_spouse,
+    def onchange_rent_company_id(self):
+        if self.rent_company_id:
+            self.first_limit = self.rent_company_id.first_limit
+            self.second_limit = self.rent_company_id.second_limit
+            self.amount_per_child = self.rent_company_id.amount_per_child
+            self.amount_per_spouse = self.rent_company_id.amount_per_spouse
         else:
             self.first_limit = 0.0
             self.second_limit = 0.0
@@ -42,50 +41,58 @@ class HRSettingsConf(models.TransientModel):
 
     """Get the default company for the module"""
     @api.model
-    def get_default_rent_company_id(self):
-        return {'rent_company_id': self._company_default_get()}
+    def get_default_rent_company_id(self, fields):
+        return {
+            'rent_company_id':
+                self.env['res.company']._company_default_get().id
+        }
 
     """Get the default first_limit"""
     @api.model
-    def get_first_limit(self):
-        company = self._company_default_get()
+    def get_first_limit(self, fields):
+        company = self.env['res.company']._company_default_get()
         return {'first_limit': company.first_limit}
 
     """Set the default first_limit"""
-    @api.model
+    @api.multi
     def set_first_limit(self):
-        self.rent_company_id.write({'first_limit': self.first_limit})
+        for wizard in self:
+            wizard.rent_company_id.write({'first_limit': self.first_limit})
 
     """Get the default second_limit"""
     @api.model
-    def get_second_limit(self):
-        company = self._company_default_get()
+    def get_second_limit(self, fields):
+        company = self.env['res.company']._company_default_get()
         return {'second_limit': company.second_limit}
 
     """Set the default second_limit in the selected company"""
-    @api.model
+    @api.multi
     def set_second_limit(self):
-        self.rent_company_id.write({'second_limit': self.second_limit})
+        for wizard in self:
+            wizard.rent_company_id.write({'second_limit': self.second_limit})
 
     """Get the default amount_per_child"""
     @api.model
-    def get_amount_per_child(self, cr, uid, fields, context=None):
-        company = self._company_default_get()
+    def get_amount_per_child(self, fields):
+        company = self.env['res.company']._company_default_get()
         return {'amount_per_child': company.amount_per_child}
 
     """Set the default amount_per_child in the selected company"""
-    @api.model
+    @api.multi
     def set_amount_per_child(self):
-        self.rent_company_id.write({'amount_per_child': self.amount_per_child})
+        for wizard in self:
+            wizard.rent_company_id.write(
+                {'amount_per_child': self.amount_per_child})
 
     """Get the default amount_per_spouse"""
     @api.model
-    def get_amount_per_spouse(self):
-        company = self._company_default_get()
+    def get_amount_per_spouse(self, fields):
+        company = self.env['res.company']._company_default_get()
         return {'amount_per_spouse': company.amount_per_spouse}
 
     """Set the default amount_per_spouse in the selected company"""
-    @api.model
+    @api.multi
     def set_amount_per_spouse(self):
-        self.rent_company_id.write(
-            {'amount_per_spouse': self.amount_per_spouse})
+        for wizard in self:
+            wizard.rent_company_id.write(
+                {'amount_per_spouse': self.amount_per_spouse})

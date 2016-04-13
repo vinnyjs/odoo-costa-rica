@@ -24,6 +24,8 @@
         'data/l10n_cr_hr_payroll_inputs.xml',
         'security/l10n_cr_hr_payroll_security.xml',
         'security/ir.model.access.csv',
+        'wizard/payroll_by_periods.xml',
+        'wizard/payroll_by_periods_employee.xml',
         'views/report_payroll_periods.xml',
         # 'views/report_payroll_xls.xml',
         'views/report_payroll_periods_employee.xml',
@@ -35,7 +37,5 @@
         'views/l10n_cr_hr_payroll_menu.xml',
         'views/hr_config_settings.xml',
         'views/l10n_cr_hr_payroll_view.xml',
-        'wizard/payroll_by_periods.xml',
-        'wizard/payroll_by_periods_employee.xml',
     ]
 }

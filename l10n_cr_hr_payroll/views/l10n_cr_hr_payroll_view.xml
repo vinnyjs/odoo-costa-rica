@@ -10,7 +10,7 @@
             <field name="inherit_id" ref="hr.view_employee_form"/>
             <field name="arch" type="xml">
                 <data>
-                    <xpath expr="//page[@string='Personal Information']/group/group[@string='Contact Information']/field[@name='address_home_id']" position="after">
+                    <xpath expr="//field[@name='address_home_id']" position="after">
                         <field name="personal_email"/>
                     </xpath>
                 </data>
