@@ -112,7 +112,7 @@ result = rules.NET > categories.NET * 0.10''',
 
         if subtotal and employee.report_wife:
             total = subtotal - wife_amount - (child_amount *
-                                                children_numbers)
+                                              children_numbers)
         elif subtotal:
             total = subtotal - (child_amount * children_numbers)
         return total
