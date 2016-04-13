@@ -27,9 +27,9 @@
                                 <label for="amount_per_child"/>
                                 <field name="amount_per_child" class="oe_inline"/>
                             </div>
-                            <div name="amount_per_spouse">
-                                <label for="amount_per_spouse"/>
-                                <field name="amount_per_spouse" class="oe_inline"/>
+                            <div name="amount_per_wife">
+                                <label for="amount_per_wife"/>
+                                <field name="amount_per_wife" class="oe_inline"/>
                             </div>
                         </div>
                     </group>

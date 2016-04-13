@@ -90,7 +90,7 @@ result = rules.NET > categories.NET * 0.10''',
         limit1 = company.first_limit
         limit2 = company.second_limit
 
-        spouse_amount = company.amount_per_spouse
+        wife_amount = company.amount_per_wife
         child_amount = company.amount_per_child
 
         children_numbers = employee.report_number_child
@@ -110,8 +110,8 @@ result = rules.NET > categories.NET * 0.10''',
 #           10% of limit1
             subtotal += exceed_1 * 0.10
 
-        if subtotal and employee.report_spouse:
-            total = subtotal - spouse_amount - (child_amount *
+        if subtotal and employee.report_wife:
+            total = subtotal - wife_amount - (child_amount *
                                                 children_numbers)
         elif subtotal:
             total = subtotal - (child_amount * children_numbers)

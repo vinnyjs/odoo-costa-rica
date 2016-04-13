@@ -2,7 +2,7 @@
 
 <openerp>
     <data>
-        <!--Employee - Spouse-->
+        <!--Employee - wife-->
         <record id="view_employee_form_inherit" model="ir.ui.view">
             <field name="name">view.employee.form.inherit</field>
             <field name="model">hr.employee</field>
@@ -12,6 +12,9 @@
                 <data>
                     <xpath expr="//field[@name='address_home_id']" position="after">
                         <field name="personal_email"/>
+                    </xpath>
+                    <xpath expr="//field[@name='marital']" position="after">
+                        <field name="report_wife" attrs="{'invisible': [('marital', 'not in', ('married'))]}"/>
                     </xpath>
                 </data>
             </field>

@@ -34,9 +34,9 @@ msgid "Amount per Child"
 msgstr ""
 
 #. module: l10n_cr_hr_payroll
-#: field:hr.config.settings,amount_per_spouse:0
-#: field:res.company,amount_per_spouse:0
-msgid "Amount per spouse"
+#: field:hr.config.settings,amount_per_wife:0
+#: field:res.company,amount_per_wife:0
+msgid "Amount per wife"
 msgstr ""
 
 #. module: l10n_cr_hr_payroll
@@ -284,8 +284,8 @@ msgid "If checked new messages require your attention."
 msgstr ""
 
 #. module: l10n_cr_hr_payroll
-#: help:hr.employee,report_spouse:0
-msgid "If this employee reports his spouse for rent payment"
+#: help:hr.employee,report_wife:0
+msgid "If this employee reports his wife for rent payment"
 msgstr ""
 
 #. module: l10n_cr_hr_payroll
@@ -476,8 +476,8 @@ msgid "Rent Configuration"
 msgstr ""
 
 #. module: l10n_cr_hr_payroll
-#: field:hr.employee,report_spouse:0
-msgid "Report Spouse"
+#: field:hr.employee,report_wife:0
+msgid "Report wife"
 msgstr ""
 
 #. module: l10n_cr_hr_payroll

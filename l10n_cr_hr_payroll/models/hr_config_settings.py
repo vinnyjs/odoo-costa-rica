@@ -21,8 +21,8 @@ class HRSettingsConf(models.TransientModel):
     amount_per_child = fields.Float(
         string='Amount per Child', digits=dp.get_precision('Payroll'),
         default=0.0)
-    amount_per_spouse = fields.Float(
-        string='Amount per spouse', digits=dp.get_precision('Payroll'),
+    amount_per_wife = fields.Float(
+        string='Amount per wife', digits=dp.get_precision('Payroll'),
         default=0.0)
 
     """Override onchange_company_id to update rent limits """
@@ -32,12 +32,12 @@ class HRSettingsConf(models.TransientModel):
             self.first_limit = self.rent_company_id.first_limit
             self.second_limit = self.rent_company_id.second_limit
             self.amount_per_child = self.rent_company_id.amount_per_child
-            self.amount_per_spouse = self.rent_company_id.amount_per_spouse
+            self.amount_per_wife = self.rent_company_id.amount_per_wife
         else:
             self.first_limit = 0.0
             self.second_limit = 0.0
             self.amount_per_child = 0.0
-            self.amount_per_spouse = 0.0
+            self.amount_per_wife = 0.0
 
     """Get the default company for the module"""
     @api.model
@@ -84,15 +84,15 @@ class HRSettingsConf(models.TransientModel):
             wizard.rent_company_id.write(
                 {'amount_per_child': self.amount_per_child})
 
-    """Get the default amount_per_spouse"""
+    """Get the default amount_per_wife"""
     @api.model
-    def get_amount_per_spouse(self, fields):
+    def get_amount_per_wife(self, fields):
         company = self.env['res.company']._company_default_get()
-        return {'amount_per_spouse': company.amount_per_spouse}
+        return {'amount_per_wife': company.amount_per_wife}
 
-    """Set the default amount_per_spouse in the selected company"""
+    """Set the default amount_per_wife in the selected company"""
     @api.multi
-    def set_amount_per_spouse(self):
+    def set_amount_per_wife(self):
         for wizard in self:
             wizard.rent_company_id.write(
-                {'amount_per_spouse': self.amount_per_spouse})
+                {'amount_per_wife': self.amount_per_wife})

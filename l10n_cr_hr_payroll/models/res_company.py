@@ -16,5 +16,5 @@ class resCompanyInherit(models.Model):
                                 digits=dp.get_precision('Payroll'))
     amount_per_child = fields.Float(string='Amount per Child',
                                     digits=dp.get_precision('Payroll'))
-    amount_per_spouse = fields.Float(string='Amount per spouse',
+    amount_per_wife= fields.Float(string='Amount per spouse',
                                      digits=dp.get_precision('Payroll'))

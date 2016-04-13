@@ -20,14 +20,14 @@ class hr_employee(models.Model):
 
     @api.onchange('marital')
     def _onchange_marital(self):
-        self.report_spouse = False
+        self.report_wife = False
 
     marital = fields.Selection(
         [('single', 'Single'), ('married', 'Married'), ('widower', 'Widower'),
          ('divorced', 'Divorced')], string='Marital')
-    report_spouse = fields.Boolean(
-        'Report Spouse',
-        help="If this employee reports his spouse for rent payment")
+    report_wife = fields.Boolean(
+        'Report Wife',
+        help="If this employee reports his wife for rent payment")
     report_number_child = fields.Integer(
         'Number of children to report',
         help="Number of children to report for rent payment",
