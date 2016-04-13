@@ -99,7 +99,7 @@ result = rules.NET > categories.NET * 0.10''',
         if SBT >= limit2:
             exceed_2 = SBT - limit2
 #           15% of limit2
-            subtotal += exceed_2 * 0.1
+            subtotal += exceed_2 * 0.15
 #           10% of difference between limits
             limit_temp = (limit2 - limit1) * 0.10
             subtotal += limit_temp
@@ -169,7 +169,6 @@ result = rules.NET > categories.NET * 0.10''',
                                                         payslip)
         total_curr_rent = (rent_empl_total - total_paid_rent) /\
             (future_payments + actual_payment)
-
         return total_curr_rent
 
     def python_expresion_rent(self, cr, uid, company, inputs, employee,
