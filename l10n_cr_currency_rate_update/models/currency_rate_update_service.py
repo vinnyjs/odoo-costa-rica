@@ -2,7 +2,7 @@
 # © 2016 ClearCorp
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from openerp import models, fields
+from openerp import models, fields, api
 from openerp.tools.translate import _
 
 
@@ -16,6 +16,12 @@ class CurrencyRateUpdateService(models.Model):
                        ('weeks', 'Week(s)'),
                        ('months', 'Month(s)')],
         string='Currency update frequency', default='days')
+
+    @api.multi
+    def run_currency_update(self):
+        # Update currency at the given frequence
+        services = self.search([])
+        services.with_context(cron=True).refresh_currency()
 
     _sql_constraints = [(
         'curr_service_unique',
