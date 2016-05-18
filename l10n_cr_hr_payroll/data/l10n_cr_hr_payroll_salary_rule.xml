@@ -11,7 +11,7 @@
             <field name="appears_on_report">True</field>
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
-            <field name="amount_python_compute">result = categories.BASE - categories.DPA  + categories.BON</field>
+            <field name="amount_python_compute">result = categories.BASE + categories.EXT + categories.BON</field>
         </record>
 
         <record id="hr_payroll_rules_net" model="hr.salary.rule">
@@ -285,14 +285,14 @@ result = inputs.SOP.amount</field>
             <field name="appears_on_report">True</field>
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
-            <field name="amount_python_compute">result = categories.CONTRATO + categories.SOP</field>
+            <field name="amount_python_compute">result = categories.CONTRATO + categories.SOP - categories.DPA</field>
         </record>
         
         <record id="hr_payroll_rules_extra_hour_1_5_monthly" model="hr.salary.rule">
-            <field name="category_id" ref="hr_payroll_aditional_pay_salary"/>
+            <field name="category_id" ref="hr_payroll_extra_hours_salary"/>
             <field name="name">Hora Extra-1.5 - Mensual</field>
             <field name="code">EXT</field>
-            <field name="sequence">50</field>
+            <field name="sequence">150</field>
             <field name="appears_on_report">True</field>
             <field name="condition_select">python</field>
             <field name="condition_python">
@@ -336,10 +336,10 @@ result = worked_days.HE.number_of_hours * wage_hour * 1.5 + worked_days.HE.numbe
         </record>
 
         <record id="hr_payroll_rules_holiday_monthly" model="hr.salary.rule">
-            <field name="category_id" ref="hr_payroll_aditional_pay_salary"/>
+            <field name="category_id" ref="hr_payroll_extra_hours_salary"/>
             <field name="name">Pago por Feriado-1.0 - Mensual</field>
             <field name="code">FE</field>
-            <field name="sequence">51</field>
+            <field name="sequence">151</field>
             <field name="appears_on_report">True</field>
             <field name="condition_select">python</field>
             <field name="condition_python">
@@ -384,10 +384,10 @@ result = worked_days.FE.number_of_hours * wage_hour + worked_days.FE.number_of_d
         </record>
 
         <record id="hr_payroll_rules_extra_hour_holiday_monthly" model="hr.salary.rule">
-            <field name="category_id" ref="hr_payroll_aditional_pay_salary"/>
+            <field name="category_id" ref="hr_payroll_extra_hours_salary"/>
             <field name="name">Extras en Feriado-2.0 - Mensual</field>
             <field name="code">EXT-FE</field>
-            <field name="sequence">52</field>
+            <field name="sequence">152</field>
             <field name="appears_on_report">True</field>
             <field name="condition_select">python</field>
             <field name="condition_python">
@@ -487,14 +487,14 @@ result = worked_days.AUS.number_of_hours * wage_hour + worked_days.AUS.number_of
             <field name="appears_on_report">True</field>
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
-            <field name="amount_python_compute">result = categories.CONTRATO / 2 + categories.SOP</field>
+            <field name="amount_python_compute">result = categories.CONTRATO / 2 + categories.SOP - categories.DPA</field>
         </record>
 
         <record id="hr_payroll_rules_extra_hour_1_5_fortnightly" model="hr.salary.rule">
-            <field name="category_id" ref="hr_payroll_aditional_pay_salary"/>
+            <field name="category_id" ref="hr_payroll_extra_hours_salary"/>
             <field name="name">Hora Extra-1.5 - Quincenal</field>
             <field name="code">EXT</field>
-            <field name="sequence">50</field>
+            <field name="sequence">150</field>
             <field name="appears_on_report">True</field>
             <field name="condition_select">python</field>
             <field name="condition_python">
@@ -538,10 +538,10 @@ result = worked_days.HE.number_of_hours * wage_hour * 1.5 + worked_days.HE.numbe
         </record>
 
         <record id="hr_payroll_rules_holiday_fortnightly" model="hr.salary.rule">
-            <field name="category_id" ref="hr_payroll_aditional_pay_salary"/>
+            <field name="category_id" ref="hr_payroll_extra_hours_salary"/>
             <field name="name">Pago por Feriado-1.0 - Quincenal</field>
             <field name="code">FE</field>
-            <field name="sequence">51</field>
+            <field name="sequence">151</field>
             <field name="appears_on_report">True</field>
             <field name="condition_select">python</field>
             <field name="condition_python">
@@ -586,10 +586,10 @@ result = worked_days.FE.number_of_hours * wage_hour + worked_days.FE.number_of_d
         </record>
 
         <record id="hr_payroll_rules_extra_hour_holiday_fortnightly" model="hr.salary.rule">
-            <field name="category_id" ref="hr_payroll_aditional_pay_salary"/>
+            <field name="category_id" ref="hr_payroll_extra_hours_salary"/>
             <field name="name">Extras en Feriado-2.0 - Quincenal</field>
             <field name="code">EXT-FE</field>
-            <field name="sequence">52</field>
+            <field name="sequence">152</field>
             <field name="appears_on_report">True</field>
             <field name="condition_select">python</field>
             <field name="condition_python">
@@ -689,14 +689,14 @@ result = worked_days.AUS.number_of_hours * wage_hour + worked_days.AUS.number_of
             <field name="appears_on_report">True</field>
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
-            <field name="amount_python_compute">result = categories.CONTRATO * 12 / 26 + categories.SOP</field>
+            <field name="amount_python_compute">result = categories.CONTRATO * 12 / 26 + categories.SOP - categories.DPA</field>
         </record>
 
         <record id="hr_payroll_rules_extra_hour_1_5_biweekly" model="hr.salary.rule">
-            <field name="category_id" ref="hr_payroll_aditional_pay_salary"/>
+            <field name="category_id" ref="hr_payroll_extra_hours_salary"/>
             <field name="name">Hora Extra-1.5 - Bisemanal</field>
             <field name="code">EXT</field>
-            <field name="sequence">50</field>
+            <field name="sequence">150</field>
             <field name="appears_on_report">True</field>
             <field name="condition_select">python</field>
             <field name="condition_python">
@@ -741,10 +741,10 @@ result = worked_days.HE.number_of_hours * wage_hour * 1.5 + worked_days.HE.numbe
         </record>
 
         <record id="hr_payroll_rules_holiday_biweekly" model="hr.salary.rule">
-            <field name="category_id" ref="hr_payroll_aditional_pay_salary"/>
+            <field name="category_id" ref="hr_payroll_extra_hours_salary"/>
             <field name="name">Pago por Feriado-1.0 - Bisemanal</field>
             <field name="code">FE</field>
-            <field name="sequence">51</field>
+            <field name="sequence">151</field>
             <field name="appears_on_report">True</field>
             <field name="condition_select">python</field>
             <field name="condition_python">
@@ -789,10 +789,10 @@ result = worked_days.FE.number_of_hours * wage_hour + worked_days.FE.number_of_d
         </record>
 
         <record id="hr_payroll_rules_extra_hour_holiday_biweekly" model="hr.salary.rule">
-            <field name="category_id" ref="hr_payroll_aditional_pay_salary"/>
+            <field name="category_id" ref="hr_payroll_extra_hours_salary"/>
             <field name="name">Extras en Feriado-2.0 - Bisemanal</field>
             <field name="code">EXT-FE</field>
-            <field name="sequence">52</field>
+            <field name="sequence">152</field>
             <field name="appears_on_report">True</field>
             <field name="condition_select">python</field>
             <field name="condition_python">
@@ -892,14 +892,14 @@ result = worked_days.AUS.number_of_hours * wage_hour + worked_days.AUS.number_of
             <field name="appears_on_report">True</field>
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
-            <field name="amount_python_compute">result = categories.CONTRATO * 12 / 52 + categories.SOP</field>
+            <field name="amount_python_compute">result = categories.CONTRATO * 12 / 52 + categories.SOP - categories.DPA</field>
         </record>
 
         <record id="hr_payroll_rules_extra_hour_1_5_weekly" model="hr.salary.rule">
-            <field name="category_id" ref="hr_payroll_aditional_pay_salary"/>
+            <field name="category_id" ref="hr_payroll_extra_hours_salary"/>
             <field name="name">Hora Extra-1.5 - Semanal</field>
             <field name="code">EXT</field>
-            <field name="sequence">50</field>
+            <field name="sequence">150</field>
             <field name="appears_on_report">True</field>
             <field name="condition_select">python</field>
             <field name="condition_python">
@@ -943,10 +943,10 @@ result = worked_days.HE.number_of_hours * wage_hour * 1.5 + worked_days.HE.numbe
         </record>
         
         <record id="hr_payroll_rules_holiday_weekly" model="hr.salary.rule">
-            <field name="category_id" ref="hr_payroll_aditional_pay_salary"/>
+            <field name="category_id" ref="hr_payroll_extra_hours_salary"/>
             <field name="name">Pago por Feriado-1.0 - Semanal</field>
             <field name="code">FE</field>
-            <field name="sequence">51</field>
+            <field name="sequence">151</field>
             <field name="appears_on_report">True</field>
             <field name="condition_select">python</field>
             <field name="condition_python">
@@ -990,10 +990,10 @@ result = worked_days.FE.number_of_hours * wage_hour + worked_days.FE.number_of_d
         </record>
         
         <record id="hr_payroll_rules_extra_hour_holiday_weekly" model="hr.salary.rule">
-            <field name="category_id" ref="hr_payroll_aditional_pay_salary"/>
+            <field name="category_id" ref="hr_payroll_extra_hours_salary"/>
             <field name="name">Extras en Feriado-2.0 - Semanal</field>
             <field name="code">EXT-FE</field>
-            <field name="sequence">52</field>
+            <field name="sequence">152</field>
             <field name="appears_on_report">True</field>
             <field name="condition_select">python</field>
             <field name="condition_python">
@@ -1088,24 +1088,24 @@ result = worked_days.AUS.number_of_hours * wage_hour + worked_days.AUS.number_of
             <field name="category_id" ref="hr_payroll_base_salary"/> 
             <field name="name">Salario Base - Jornal</field>
             <field name="code">BASE</field>
-            <field name="sequence">1</field>
+            <field name="sequence">100</field>
             <field name="appears_on_report">True</field>
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
             <field name="amount_python_compute">
                 wage_hour = contract.wage 
                 if worked_days.HN:
-                    result = worked_days.HN.number_of_hours * wage_hour
+                    result = (worked_days.HN.number_of_hours * categories.CONTRATO) + categories.SOP
                 else:
                     result = 0
            </field>
         </record>
 
         <record id="hr_payroll_rules_extra_hour_1_5_per_hour" model="hr.salary.rule">
-            <field name="category_id" ref="hr_payroll_aditional_pay_salary"/>
+            <field name="category_id" ref="hr_payroll_extra_hours_salary"/>
             <field name="name">Hora Extra-1.5 - Jornal</field>
             <field name="code">EXT</field>
-            <field name="sequence">50</field>
+            <field name="sequence">150</field>
             <field name="appears_on_report">True</field>
             <field name="condition_select">python</field>
             <field name="condition_python">
@@ -1148,10 +1148,10 @@ result = worked_days.HE.number_of_hours * wage_hour
         </record>
 
         <record id="hr_payroll_rules_holiday_per_hour" model="hr.salary.rule">
-            <field name="category_id" ref="hr_payroll_aditional_pay_salary"/>
+            <field name="category_id" ref="hr_payroll_extra_hours_salary"/>
             <field name="name">Pago por Feriado-1.0 - Jornal</field>
             <field name="code">FE</field>
-            <field name="sequence">51</field>
+            <field name="sequence">151</field>
             <field name="appears_on_report">True</field>
             <field name="condition_select">python</field>
             <field name="condition_python">
@@ -1194,10 +1194,10 @@ result = worked_days.FE.number_of_hours * wage_hour
         </record>
 
         <record id="hr_payroll_rules_extra_hour_holiday_per_hour" model="hr.salary.rule">
-            <field name="category_id" ref="hr_payroll_aditional_pay_salary"/>
+            <field name="category_id" ref="hr_payroll_extra_hours_salary"/>
             <field name="name">Extras en Feriado-2.0 - Jornal</field>
             <field name="code">EXT-FE</field>
-            <field name="sequence">52</field>
+            <field name="sequence">152</field>
             <field name="appears_on_report">True</field>
             <field name="condition_select">python</field>
             <field name="condition_python">
@@ -1400,8 +1400,7 @@ result = 0.00</field>
                                           (4, ref('hr_payroll_rules_base_per_hour')),
                                           (4, ref('hr_payroll_rules_extra_hour_1_5_per_hour')),
                                           (4, ref('hr_payroll_rules_holiday_per_hour')),
-                                          (4, ref('hr_payroll_rules_extra_hour_holiday_per_hour')),
-                                          (4, ref('hr_payroll_rules_absence_deduction_per_hour')),]"/>
+                                          (4, ref('hr_payroll_rules_extra_hour_holiday_per_hour')),]"/>
         </record>
     </data>
 </openerp>
