@@ -1239,50 +1239,6 @@ result = worked_days.HE.number_of_hours * wage_hour * 2
            </field>
         </record>
         
-        <record id="hr_payroll_rules_absence_deduction_per_hour" model="hr.salary.rule">
-            <field name="category_id" ref="hr_payroll_absence_salary"/>
-            <field name="name">Rebajo por Ausencias-1.0 - Jornal</field>
-            <field name="code">Ausencias</field>
-            <field name="sequence">53</field>
-            <field name="appears_on_report">True</field>
-            <field name="condition_select">python</field>
-            <field name="condition_python">
-# Available variables:
-#----------------------
-# payslip: object containing the payslips
-# employee: hr.employee object
-# contract: hr.contract object
-# rules: object containing the rules code (previously computed)
-# categories: object containing the computed salary rule categories (sum of amount of all rules belonging to that category).
-# worked_days: object containing the computed worked days.
-# inputs: object containing the computed inputs.
-# company: object of res.company. It is a browse record
-# hr_salary_rule: object for call hr_salary_rule functions
-# cr: cursor 
-# uid: uid
-
-# Note: returned value have to be set in the variable 'result'
-result = worked_days.AUS</field>
-            <field name="amount_select">code</field>
-            <field name="amount_python_compute">
-# Available variables:
-#----------------------
-# payslip: object containing the payslips
-# employee: hr.employee object
-# contract: hr.contract object
-# rules: object containing the rules code (previously computed)
-# categories: object containing the computed salary rule categories (sum of amount of all rules belonging to that category).
-# worked_days: object containing the computed worked days.
-# inputs: object containing the computed inputs.
-# company: object of res.company. It is a browse record
-# hr_salary_rule: object for call hr_salary_rule functions
-# cr: cursor 
-# uid: uid
-
-# Note: returned value have to be set in the variable 'result'
-result = 0.00</field>
-        </record>
-
         <!-- Structures -->
         <!-- Monthly -->
         <record id="data_structure_monthly" model="hr.payroll.structure">
