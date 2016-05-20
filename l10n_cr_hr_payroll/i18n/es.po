@@ -4,11 +4,11 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 9.0e\n"
+"Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-14 14:16+0000\n"
-"PO-Revision-Date: 2016-04-14 14:16+0000\n"
-"Last-Translator: <>\n"
+"POT-Creation-Date: 2016-05-18 19:40+0000\n"
+"PO-Revision-Date: 2016-05-18 19:40+0000\n"
+"Last-Translator: Fabio Vilchez<fabio.vilchez@clearcorp.co.cr>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -28,9 +28,9 @@ msgid "\n"
 msgstr "\n"
 "<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
 "\n"
-"    <p>Collaborator ${object.employee_id.name},</p>\n"
-"    <p>Attached payslip.</p>\n"
-"    <p>If you have any question, do not hesitate to contact me.</p>\n"
+"    <p>Colaborador ${object.employee_id.name},</p>\n"
+"    <p>Se adjunta comprobante de pago de su planilla.</p>\n"
+"    <p>En caso de preguntas, no dude en contactarme.</p>\n"
 "</div>\n"
 "            "
 
@@ -57,6 +57,7 @@ msgstr "Monto por hijos"
 
 #. module: l10n_cr_hr_payroll
 #: model:ir.model.fields,field_description:l10n_cr_hr_payroll.field_hr_payroll_config_settings_amount_per_wife
+#: model:ir.model.fields,field_description:l10n_cr_hr_payroll.field_res_company_amount_per_wife
 msgid "Amount per wife"
 msgstr "Monto por cónyugue"
 
@@ -150,7 +151,7 @@ msgstr "Departamento:"
 #: model:ir.model.fields,field_description:l10n_cr_hr_payroll.field_report_l10n_cr_hr_payroll_report_payroll_periods_employee_display_name
 #: model:ir.model.fields,field_description:l10n_cr_hr_payroll.field_report_l10n_cr_hr_payroll_report_payslip_run_display_name
 msgid "Display Name"
-msgstr "Nombre para mostrar"
+msgstr "Nombre mostrado"
 
 #. module: l10n_cr_hr_payroll
 #: model:ir.model,name:l10n_cr_hr_payroll.model_hr_employee
@@ -306,7 +307,7 @@ msgstr "Fecha del último mensaje"
 #: model:ir.model.fields,field_description:l10n_cr_hr_payroll.field_report_l10n_cr_hr_payroll_report_payroll_periods_employee___last_update
 #: model:ir.model.fields,field_description:l10n_cr_hr_payroll.field_report_l10n_cr_hr_payroll_report_payslip_run___last_update
 msgid "Last Modified on"
-msgstr "Última modificación en"
+msgstr "Última Modifiación en"
 
 #. module: l10n_cr_hr_payroll
 #: model:ir.model.fields,field_description:l10n_cr_hr_payroll.field_l10n_cr_hr_payroll_by_periods_employee_write_uid
