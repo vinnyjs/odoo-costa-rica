@@ -21,8 +21,8 @@ class BccrGetter(CurrencyGetterInterface):
 
     def get_url(self, url):
         """Return a string of a get url query"""
-        import urllib
-        objfile = urllib.urlopen(url)
+        import urllib2
+        objfile = urllib2.urlopen(url, timeout=20)
         rawfile = objfile.read()
         objfile.close()
         return rawfile
