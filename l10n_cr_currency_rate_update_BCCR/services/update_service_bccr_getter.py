@@ -21,20 +21,12 @@ class BccrGetter(CurrencyGetterInterface):
 
     def get_url(self, url):
         """Return a string of a get url query"""
-        flag = 0
-        while(flag < 3):
-            try:
-                import urllib
-                objfile = urllib.urlopen(url)
-                rawfile = objfile.read()
-                objfile.close()
-                return rawfile
-            except ImportError:
-                time.sleep(5)
-                flag += 1
-            except IOError:
-                time.sleep(5)
-                flag += 1
+        import urllib
+        objfile = urllib.urlopen(url)
+        rawfile = objfile.read()
+        objfile.close()
+        return rawfile
+
 
     def get_updated_currency(
             self, currency_array, main_currency, max_delta_days, code_rate=''):
