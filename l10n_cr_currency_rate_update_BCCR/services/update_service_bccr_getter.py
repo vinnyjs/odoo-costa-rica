@@ -27,7 +27,6 @@ class BccrGetter(CurrencyGetterInterface):
         objfile.close()
         return rawfile
 
-
     def get_updated_currency(
             self, currency_array, main_currency, max_delta_days, code_rate=''):
         """implementation of abstract method of Curreny_getter_interface"""
