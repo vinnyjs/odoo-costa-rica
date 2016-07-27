@@ -56,7 +56,8 @@ HUNDREDS = (
 
 
 # TODO: Remove currency param
-def number_to_text_es(number_in, currency, join_dec=' Y ', separator=',', decimal_point='.'):
+def number_to_text_es(number_in, currency, join_dec=' Y ',
+                      separator=',', decimal_point='.'):
     converted = ''
     if currency is False or currency is None:
         currency = ''
@@ -71,7 +72,8 @@ def number_to_text_es(number_in, currency, join_dec=' Y ', separator=',', decima
     try:
         number = number.replace(separator, '')
     except ValueError:
-        _logger.info("An error occurred while replacing the separator an error may occur.")
+        _logger.info("An error occurred while replacing the "
+                     "separator an error may occur.")
 
     # Get the integer and decimal part of the numbers
     try:
@@ -110,7 +112,8 @@ def number_to_text_es(number_in, currency, join_dec=' Y ', separator=',', decima
         number_dec += '0'
 
     # TODO: Check currency inclusion
-    has_decimal = float(number_dec) != 0 and join_dec + number_dec + "/100" or ' EXACTOS'
+    has_decimal = float(number_dec) != 0 and join_dec + number_dec +\
+                                             "/100" or ' EXACTOS'
     converted += currency + has_decimal
 
     return converted
