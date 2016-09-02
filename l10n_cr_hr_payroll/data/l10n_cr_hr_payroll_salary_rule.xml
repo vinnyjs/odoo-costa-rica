@@ -434,7 +434,7 @@ result = worked_days.HEF.number_of_hours * wage_hour * 2 + worked_days.HEF.numbe
             <field name="category_id" ref="hr_payroll_absence_salary"/>
             <field name="name">Rebajo por Ausencias-1.0 - Mensual</field>
             <field name="code">Ausencias</field>
-            <field name="sequence">110</field>
+            <field name="sequence">53</field>
             <field name="appears_on_report">True</field>
             <field name="condition_select">python</field>
             <field name="condition_python">
