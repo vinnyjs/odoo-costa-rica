@@ -22,6 +22,7 @@
         'data/l10n_cr_hr_payroll_salary_rule.xml',
         'data/report_paperformat.xml',
         'data/l10n_cr_hr_payroll_inputs.xml',
+        'data/l10n_cr_hr_payroll_message_subtype.xml',
         'security/l10n_cr_hr_payroll_security.xml',
         'security/ir.model.access.csv',
         'wizard/payroll_by_periods.xml',
