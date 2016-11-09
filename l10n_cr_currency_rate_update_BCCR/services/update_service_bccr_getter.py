@@ -3,6 +3,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 import logging
+import openerp
 from xml.dom.minidom import parseString
 from openerp.addons.currency_rate_update import CurrencyGetterInterface
 from datetime import datetime
@@ -33,8 +34,9 @@ class BccrGetter(CurrencyGetterInterface):
 
         today = datetime.today()
         today_str = today.strftime('%d/%m/%Y')
-        url1 = 'http://indicadoreseconomicos.bccr.fi.cr/' + \
-            'indicadoreseconomicos/WebServices/wsIndicadoresEconomicos' + \
+        ip_bccr_getter = openerp.tools.config['ip_bccr_getter']
+        url1 = 'http://' + ip_bccr_getter + \
+            '/indicadoreseconomicos/WebServices/wsIndicadoresEconomicos' + \
             '.asmx/ObtenerIndicadoresEconomicos?tcNombre=ClearCorp' + \
             '&tnSubNiveles=N&tcFechaFinal=' + today_str + '&tcFechaInicio='
         url2 = '&tcIndicador='
