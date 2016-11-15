@@ -21,7 +21,7 @@
         'account',
     ],
     'data': [
-        'l10n_cr_account_invoice_line.xml',
+        'views/l10n_cr_account_invoice_line.xml',
         'views/l10n_cr_account_invoice_report.xml',
     ],
     'demo': [
