@@ -8,7 +8,7 @@
            <field name = "type">form</field>
            <field name="inherit_id" ref="account.invoice_supplier_form"/>
            <field name = "arch" type = "xml">
-                <xpath expr="/form/sheet[@string='Supplier Invoice']/notebook/page[@string='Invoice']/field/tree/field[@name='name']" position="after">
+                <xpath expr="/form/sheet/notebook/page/field/tree/field[@name='name']" position="after">
                     <field name="type_invoice" invisible="1"/>
                     <field name="d_151_type" attrs="{'invisible':[('type_invoice', '!=','in_invoice'),('type_invoice','!=','in_refund')], 'required':['|',('type_invoice', '=','in_invoice'),('type_invoice', '=','in_refund')]}"/>
                 </xpath>
